@@ -40,7 +40,7 @@
       line-height: 1.6;
       margin-bottom: 30px;
     }
-    button {
+    .btn {
       padding: 14px 24px;
       border-radius: 12px;
       border: none;
@@ -50,8 +50,10 @@
       cursor: pointer;
       font-size: 16px;
       transition: transform .15s, box-shadow .15s;
+      text-decoration: none;
+      display: inline-block;
     }
-    button:hover {
+    .btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0,230,255,0.3);
     }
@@ -62,7 +64,7 @@
     }
     @media(max-width:480px){
       .container { padding: 25px; }
-      button { width: 100%; }
+      .btn { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -71,14 +73,11 @@
     <h2>Contact Us</h2>
     <p>যেকোনো সহযোগিতা বা তথ্যের জন্য আমাদের সাথে যোগাযোগ করুন।  
        আমরা চেষ্টা করবো দ্রুত সাড়া দিতে।</p>
-    <button onclick="gotoDashboard()">Go to Dashboard</button>
+    
+    <!-- Facebook Message Button -->
+    <a href="https://www.facebook.com/cyber24UnderCoverAgency" target="_blank" class="btn">Message</a>
+
     <footer>© UNDER COVER AGENCY</footer>
   </div>
-
-  <script>
-    function gotoDashboard(){
-      window.location.href = 'dashboard.html'; // যেখানে যেতে চাও সেই পেজের লিংক
-    }
-  </script>
 </body>
 </html>
