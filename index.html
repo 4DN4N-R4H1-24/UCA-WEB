@@ -1,0 +1,101 @@
+<!doctype html>
+
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UCA — Login</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#0f1720; --accent:#00e6ff; --muted:#9aa9b3;
+      --glass: rgba(255,255,255,0.03);
+      font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%; margin:0; background: radial-gradient(ellipse at 10% 10%, rgba(0,230,255,0.04), transparent 10%), linear-gradient(180deg,#07101a 0%, #040609 100%); color:#e6eef3}
+    .wrap{min-height:100%; display:flex; align-items:center; justify-content:center; padding:30px;}
+    .card{width:920px; max-width:96%; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; box-shadow: 0 10px 40px rgba(2,6,23,0.7); display:grid; grid-template-columns: 1fr 420px; overflow:hidden;}
+    .left{padding:40px; background:linear-gradient(90deg, rgba(0,0,0,0.12), transparent); display:flex;flex-direction:column; gap:18px;}
+    .brand{display:flex; gap:12px; align-items:center;}
+    .logo{width:80px; height:80px; border-radius:50%; overflow:hidden; background:#071426; display:flex; align-items:center; justify-content:center; border:2px solid rgba(0,230,255,0.06);}
+    .logo img{width:100%; height:100%; object-fit:cover; display:block}
+    h1{margin:0; font-size:22px; letter-spacing:0.6px}
+    p.lead{margin:0; color:var(--muted)}
+    .desc{color:var(--muted); font-size:14px; line-height:1.5}
+    .credentials{display:none}
+    .right{padding:36px; display:flex; flex-direction:column; gap:16px; align-items:stretch; justify-content:center; background:
+      linear-gradient(180deg, rgba(0,230,255,0.02), transparent);}
+    label{font-size:13px; color:var(--muted)}
+    input[type=text], input[type=password]{width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#eaf7ff; outline:none; font-size:15px}
+    .btn{background:linear-gradient(90deg,var(--accent), #6cf0ff); color:#001821; border:none; padding:12px 14px; border-radius:10px; font-weight:700; cursor:pointer; box-shadow:0 6px 18px rgba(0,230,255,0.06)}
+    .small{font-size:13px; color:var(--muted)}
+    .footer-note{font-size:12px; color:#7f98a2; margin-top:8px}
+    @media(max-width:880px){ .card{grid-template-columns:1fr;}.right{order:2} .left{order:1} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-labelledby="uca-title">
+      <div class="left">
+        <div class="brand">
+          <div class="logo"><img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA Logo"></div>
+          <div>
+            <h1 id="uca-title">UNDER COVER AGENCY</h1>
+            <p class="lead">Secure · Ethical · Professional</p>
+          </div>
+        </div><div style="margin-top:6px">
+      <p class="desc">
+        তোমার ওয়েবসাইটের মূল প্রবেশদ্বার। এখানে লগইন করার পরে তুমি Dashboard-এ চলে যাবে যেখানে About, Contact ও Special Cell মেনু থাকবে। এই ইন্টারফেসটি ডিজাইন করা হয়েছে প্রফেশনাল সাইবার লুক বজায় রেখে, সহজ ও নিরাপদ ইউজার অভিজ্ঞতার জন্য।
+      </p>
+    </div>
+
+    <div class="footer-note">নোট: প্রোডাকশনে অবশ্যই সার্ভার-সাইড অথেনটিকেশন ব্যবহার করো।</div>
+  </div>
+
+  <div class="right">
+    <div>
+      <label for="username">User name</label>
+      <input id="username" type="text" placeholder="Enter user name" value="">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Enter password">
+    </div>
+    <div style="display:flex; gap:10px; align-items:center">
+      <button class="btn" id="loginBtn">Login</button>
+      <div style="flex:1"></div>
+      <div class="small">Need help? Contact the admin.</div>
+    </div>
+
+    <div style="margin-top:10px">
+      <small style="color:var(--muted)">Security: direct access to internal pages is prevented in this demo. If you try to open dashboard/about/special directly, you'll be redirected to this login.</small>
+    </div>
+  </div>
+</div>
+
+  </div><script>
+  // Frontend-only demo auth -- for production replace with server-side auth
+  const VALID_USER = "UCA IS BRAND";
+  const VALID_PASS = "ghost commander";
+
+  document.getElementById('loginBtn').addEventListener('click', ()=>{
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    if(u === VALID_USER && p === VALID_PASS){
+      // set session
+      sessionStorage.setItem('uca_auth','true');
+      // small user label
+      sessionStorage.setItem('uca_user', u);
+      window.location.href = 'dashboard.html';
+    } else {
+      alert('Invalid credentials. Please check user name and password.');
+    }
+  });
+
+  // allow Enter key
+  [document.getElementById('username'), document.getElementById('password')].forEach(inp=>{
+    inp.addEventListener('keyup', (e)=>{
+      if(e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+  });
+</script></body>
+</html>
