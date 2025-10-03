@@ -3,213 +3,204 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>UCA — Dashboard</title>
+<title>Dashboard — CYBER 24</title>
 <style>
-:root {
-  --bg:#05070a;
-  --card:#0c1116;
-  --accent:#00e6ff;
-  --muted:#9aa9b3;
-  font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --accent:#06b6d4;
+  --muted:#9aa6b2;
+  --glass: rgba(255,255,255,0.03);
+  --success:#10b981;
+  --danger:#ef4444;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg,#02060a, #061018);
-  color: #e6eef3;
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:
+    radial-gradient(600px 400px at 10% 20%, rgba(6,182,212,0.06), transparent 8%),
+    radial-gradient(500px 300px at 90% 80%, rgba(16,185,129,0.04), transparent 10%),
+    linear-gradient(180deg,var(--bg), #071026 120%);
+  color:#e6eef5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.logo img {
-  width: 56px;
-  height: 56px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.container {
-  padding: 28px;
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 20px;
-}
-
-.card {
+.container{
+  width:100%;
+  max-width:800px;
+  padding:40px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  border-radius:18px;
+  box-shadow: 0 14px 40px rgba(2,6,23,0.6);
+  border:1px solid rgba(255,255,255,0.04);
+  text-align:center;
 }
 
-.menu {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.logo-img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:20px;
+  box-shadow: 0 0 0 4px var(--accent), 0 10px 30px rgba(6,182,212,0.2);
 }
 
-.menu button {
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.03);
+h1{
+  margin:0 0 10px 0;
+  font-size:32px;
+  color:var(--accent);
+  letter-spacing:1px;
+}
+
+.tagline{
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.6;
+  max-width:600px;
+  margin:0 auto 40px auto;
+}
+
+.nav-options{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  margin-top:30px;
+}
+
+.nav-btn{
+  display:block;
+  padding:16px 28px;
+  border-radius:12px;
+  background: linear-gradient(90deg,var(--accent), #60a5fa);
+  color:#042027;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+  transition:transform .15s, box-shadow .15s;
+  box-shadow: 0 8px 28px rgba(6,182,212,0.08);
+}
+
+.nav-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(6,182,212,0.15);
+}
+
+.logout-btn{
+  margin-top: 30px;
   background: transparent;
-  color: #dff8ff;
-  cursor: pointer;
-}
-
-.chat {
-  margin-top: 12px;
-  padding: 12px;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 18px;
   border-radius: 8px;
-  background: rgba(0,0,0,0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: background .15s;
 }
 
-#chat-log {
-  max-height: 300px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.logout-btn:hover{
+  background: rgba(255,255,255,0.05);
+}
+
+/* Chatbot Styles */
+.chat-input-group {
+  display: flex;      
+  gap: 10px;      
+  margin-top: 10px;
 }
 
 #chat-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: #001420;
-  color: #dff8ff;
-  flex: 1;
+  width: 100%;      
+  padding: 10px;      
+  border-radius: 8px;      
+  border: none;      
+  background: rgba(255,255,255,0.05);      
+  color: #e6eef5;      
+  outline: none;      
+  font-size: 14px;      
+  transition: box-shadow 0.15s;
+}
+
+#chat-input:focus {
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 #chat-send {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: linear-gradient(90deg,#00e6ff,#6cf0ff);
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
+  padding: 10px 15px;      
+  border-radius: 8px;      
+  border: none;      
+  background: var(--accent);      
+  color: #042027;      
+  font-weight: 600;      
+  cursor: pointer;      
+  transition: opacity 0.15s;
 }
 
-footer {
-  padding: 18px;
-  text-align: center;
-  color: var(--muted);
+#chat-send:disabled {
+  opacity: 0.5;      
+  cursor: not-allowed;
 }
 
-@media(max-width:880px){
-  .container { grid-template-columns: 1fr; }
+@media (max-width:600px){
+  .container{padding:25px;}
+  h1{font-size:24px;}
+  .tagline{font-size:14px;}
+  .nav-options{flex-direction:column; gap:15px;}
+  .nav-btn{font-size:16px; padding:14px 20px;}
+  .chat-input-group { flex-direction: column; }
+  #chat-send { width: 100%; }
 }
-
 </style>
 </head>
-
 <body>
-<!-- Header Section -->
-<header>
-  <div class="logo">
-    <img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA">
-  </div>
-  <div style="flex:1">
-    <h2>WELCOME TO UNDER COVER AGENCY</h2>
-    <div style="color:var(--muted); font-size:13px">Ethical cyber defense · সুরক্ষিত ডিজিটাল বাংলাদেশ</div>
-  </div>
-  <div>
-    <button id="logout" style="padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:#cfeff6;cursor:pointer">Logout</button>
-  </div>
-</header>
+<div class="container" role="main" aria-label="Dashboard">
+  <img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="CYBER 24 UNDER COVER AGENCY Logo" class="logo-img" />
+  <h1>WELCOME TO CYBER 24 UNDER COBRA AGENCY</h1>
+  <p class="tagline">CYBER 24 UNDER COVER AGENCY — Our mission is to fight against cybercrime, obscenity, and fraud to build a safe digital Bangladesh</p>
 
-<!-- Main Container -->
-<main class="container">
-<section>
-  <div class="card">
-    <h3>Menu</h3>
-    <div class="menu" style="margin-top:12px">
-      <button onclick="goto('about.html')">ABOUT US</button>
-      <button onclick="goto('contact.html')">CONTACT US</button>
-      <button onclick="goto('special_login.html')">SPECIAL CELL</button>
+  <div class="nav-options">
+    <a href="about.html" class="nav-btn">ABOUT US</a>
+    <a href="contact.html" class="nav-btn">CONTACT US</a>
+    <a href="mission.html" class="nav-btn">OUR MISSION</a>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-widget" style="margin-top:40px; padding:20px; border:1px solid rgba(255,255,255,0.1); border-radius:12px; background: rgba(0,0,0,0.2); text-align:left;">
+    <h3 style="color: var(--accent); margin-top:0;">CYBER 24 Chatbot (Powered by Gemini)</h3>
+    <div id="chat-output" style="height:200px; overflow-y:auto; background: rgba(0,0,0,0.1); padding:10px; border-radius:8px; margin-bottom:10px; font-size:14px; color: var(--muted);">
+      Welcome! I can answer general questions.
     </div>
-
-    <!-- Info Section -->
-    <div style="margin-top:18px">
-      <h4 style="margin:0 0 8px 0">Info</h4>
-      <p style="color:var(--muted); margin:0; line-height:1.6">
-        এই ড্যাশবোর্ডে AI Cyber Bot আছে — প্রশ্ন করলেই উত্তর দেবে।
-      </p>
-    </div>
-
-    <!-- Chatbot Section -->
-    <div class="chat">
-      <div id="chat-log"></div>
-      <div style="display:flex; gap:8px;">
-        <input id="chat-input" placeholder="প্রশ্ন লিখো..." />
-        <button id="chat-send">Send</button>
-      </div>
+    <div class="chat-input-group">
+      <input type="text" id="chat-input" placeholder="Ask a question..." />
+      <button id="chat-send">Send</button>
     </div>
   </div>
-</section>
-</main>
 
-<!-- Footer -->
-<footer>
-  <small style="color:#8fa6b2">© UNDER COVER AGENCY</small>
-</footer>
+  <a href="index.html" class="logout-btn">Log out</a>
+</div>
 
-<!-- Scripts -->
 <script>
-if(!sessionStorage.getItem('uca_auth')){
-  window.location.href = 'index.html';
-}
-
-document.getElementById('logout').addEventListener('click', ()=>{
-  sessionStorage.removeItem('uca_auth');
-  sessionStorage.removeItem('uca_user');
-  window.location.href = 'index.html';
-});
-
-function goto(url){ window.location.href = url; }
-
-// ✅ Gemini API Chatbot Integration
-const GEMINI_API_KEY = "AIzaSyB3N2OyB3N2OyPnkWlmMO8UP-r4xorG_8-qxVnUw";
+// 🚨 WARNING: API Key exposed in client-side! Only use in safe environment/demo
+const GEMINI_API_KEY = "AIzaSyB3N2OyPnkWlmMO8UP-r4xorG_8-qxVnUw";
 const CHAT_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 const chatInput = document.getElementById('chat-input');
-const chatLog = document.getElementById('chat-log');
+const chatOutput = document.getElementById('chat-output');
 const chatSend = document.getElementById('chat-send');
 
 function appendMessage(sender, text){
-  const el = document.createElement('div');
-  el.style.padding = '10px';
-  el.style.borderRadius = '10px';
-  el.style.maxWidth = '86%';
-  el.style.lineHeight = '1.4';
-  el.style.whiteSpace = 'pre-wrap';
-  if(sender==='User'){
-    el.style.alignSelf='flex-end';
-    el.style.background='linear-gradient(90deg,#002a33,#003f4a)';
-    el.style.color='#dff8ff';
-  } else {
-    el.style.alignSelf='flex-start';
-    el.style.background='linear-gradient(90deg,#001820,#00272f)';
-    el.style.color='#00e6ff';
-  }
-  el.innerHTML = `<strong>${sender}:</strong> ${text}`;
-  chatLog.appendChild(el);
-  chatLog.scrollTop = chatLog.scrollHeight;
+  const msg = document.createElement('p');
+  msg.style.margin='5px 0';
+  msg.style.color = sender==='Bot' ? 'var(--accent)' : '#e6eef5';
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatOutput.appendChild(msg);
+  chatOutput.scrollTop = chatOutput.scrollHeight;
 }
 
 async function sendMessage(){
@@ -222,27 +213,30 @@ async function sendMessage(){
   chatSend.disabled=true;
 
   try{
-    const res = await fetch(CHAT_ENDPOINT,{
+    const response = await fetch(CHAT_ENDPOINT, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{ 'Content-Type':'application/json' },
       body: JSON.stringify({
-        contents:[{parts:[{text: message}]}]
+        prompt: message,
+        maxOutputTokens: 300
       })
     });
 
-    if(!res.ok) throw new Error(`API request failed with status ${res.status}`);
+    if(!response.ok){
+      throw new Error(`API request failed: ${response.status}`);
+    }
 
-    const data = await res.json();
-    const botReply = data.candidates && data.candidates[0] &&
-                     data.candidates[0].content && data.candidates[0].content.parts &&
-                     data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : 'উত্তর পাওয়া যায়নি।';
-    
+    const data = await response.json();
+    const botReply = data.candidates && data.candidates[0] && data.candidates[0].output
+      ? data.candidates[0].output[0].content[0].text
+      : "উত্তর পাওয়া যায়নি।";
+
     appendMessage('Bot', botReply);
 
-  } catch(e){
-    console.error(e);
-    appendMessage('Bot', 'Network/API error');
-  } finally {
+  }catch(e){
+    console.error('Chatbot error:', e);
+    appendMessage('Bot','Network/API error. কনসোলে দেখুন।');
+  }finally{
     chatInput.disabled=false;
     chatSend.disabled=false;
     chatInput.focus();
@@ -250,9 +244,7 @@ async function sendMessage(){
 }
 
 chatSend.addEventListener('click', sendMessage);
-chatInput.addEventListener('keypress',(e)=>{
-  if(e.key==='Enter') sendMessage();
-});
+chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') sendMessage(); });
 
 // Welcome message
 appendMessage('Bot','Cyber Bot: স্বাগতম — প্রশ্ন করলেই উত্তর দিব।');
