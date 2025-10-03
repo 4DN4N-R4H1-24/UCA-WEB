@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W3B H4K1NG | SPECIAL CELL</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: "Poppins", sans-serif;
+      color: #00eaff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header {
+      text-align: center;
+      margin-top: 40px;
+    }
+    header h1 {
+      font-size: 28px;
+      text-shadow: 0 0 15px #00eaff;
+      letter-spacing: 2px;
+    }
+    .class-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .class-card {
+      background: #001820;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 0 10px #00eaff33 inset, 0 0 12px #00eaff55;
+      transition: 0.3s;
+      cursor: pointer;
+      text-align: center;
+    }
+    .class-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00eaffaa, 0 0 35px #00eaff77 inset;
+      background: #002a33;
+    }
+    .class-title {
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 0 0 8px #00eaff;
+    }
+    .back-btn {
+      margin-top: 50px;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 10px;
+      background: #001820;
+      color: #00eaff;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00eaff55 inset;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      box-shadow: 0 0 20px #00eaffaa;
+      transform: scale(1.05);
+    }
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+      color: #00eaffaa;
+      text-shadow: 0 0 8px #00eaff55;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💻 W3B H4K1NG CLASSES</h1>
+  </header>
+
+  <div class="class-container">
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1JdOzkAy23INgWRA2cTJ1rBXkC_DtAP4D/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ১</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1JsAOuXZbdCRI-ZsjBvLhSKx5G6EZ4TCl/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ২</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1RAwB89FU4ci7_2NCS5wAV7pG5N8RW3tB/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ৩</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1NwJ27T1pyaJpGoU3N7Z1DV3ILGCywQSl/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ৪</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1OmGR1y1MjCQyIYbICrfjy3SMmI4L5m35/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ৫</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1zO0LvQ5xzfKbST2TJGxfspO3QCT7qrPW/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ৬</div>
+    </div>
+
+    <div class="class-card" onclick="openVideo('https://drive.google.com/file/d/1jXE2Z0sK79wjIzrFTPNVAvd4riJArmmB/view?usp=drivesdk')">
+      <div class="class-title">ক্লাস - ৭</div>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='special-dashboard.html'">⬅ BACK TO DASHBOARD</button>
+
+  <footer>© SPECIAL CELL - CYBER 24 | W3B H4K1NG</footer>
+
+  <script>
+    function openVideo(url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  </script>
+</body>
+</html>
