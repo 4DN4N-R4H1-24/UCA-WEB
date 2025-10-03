@@ -1,183 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPECIAL CELL DASHBOARD</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UCA — Dashboard</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
-      font-family: "Poppins", sans-serif;
-      color: #00eaff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    header {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 28px;
-      font-weight: bold;
-      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
-      letter-spacing: 2px;
-    }
-    .dashboard {
-      margin-top: 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      width: 90%;
-      max-width: 400px;
-    }
-    .btn {
-      padding: 20px;
-      border-radius: 12px;
-      background: #001820;
-      color: #00eaff;
-      font-size: 18px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      text-shadow: 0 0 8px #00eaff;
-      box-shadow: 0 0 12px #00eaff55 inset;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00eaffaa, 0 0 35px #00eaff77 inset;
-      background: #002a33;
-    }
-    footer {
-      margin-top: 40px;
-      padding: 15px 0;
-      text-align: center;
-      font-size: 14px;
-      color: #00eaffaa;
-      text-shadow: 0 0 8px #00eaff55;
-    }
-
-    /* Chat widget */
-    #chat-widget {
-      max-width:520px;
-      width:100%;
-      margin:18px auto;
-      background:rgba(0,0,0,0.45);
-      border-radius:10px;
-      padding:12px;
-      color:#dff8ff;
-    }
-    #chat-log {
-      max-height:320px;
-      overflow:auto;
-      padding:8px;
-      gap:8px;
-      display:flex;
-      flex-direction:column;
-    }
-    #chat-input {
-      flex:1;
-      padding:10px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.06);
-      background:#001420;
-      color:#dff8ff;
-    }
-    #chat-send {
-      padding:10px 14px;
-      border-radius:8px;
-      background:linear-gradient(90deg,#00e6ff,#6cf0ff);
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-    }
+    :root{--bg:#05070a; --card:#0c1116; --accent:#00e6ff; --muted:#9aa9b3}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, "Helvetica Neue", Arial; background:linear-gradient(180deg,#02060a, #061018); color:#e6eef3}
+    header{display:flex; align-items:center; gap:16px; padding:18px 28px; border-bottom:1px solid rgba(255,255,255,0.03)}
+    .logo img{width:56px; height:56px; border-radius:8px; object-fit:cover}
+    h2{margin:0; font-size:20px}
+    .container{padding:28px; display:grid; grid-template-columns: 1fr 320px; gap:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    .menu{display:flex; gap:12px; flex-wrap:wrap}
+    .menu button{padding:12px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:#dff8ff; cursor:pointer;}
+    .chat{margin-top:12px; padding:12px; border-radius:8px; background:rgba(0,0,0,0.12); display:flex; flex-direction:column; gap:8px;}
+    #chat-log{max-height:300px; overflow:auto; display:flex; flex-direction:column; gap:8px;}
+    #chat-input{padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:#001420; color:#dff8ff; flex:1;}
+    #chat-send{padding:10px 14px; border-radius:8px; background:linear-gradient(90deg,#00e6ff,#6cf0ff); border:none; cursor:pointer; font-weight:700;}
+    footer{padding:18px; text-align:center; color:var(--muted)}
+    @media(max-width:880px){ .container{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo"><img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA"></div>
+    <div style="flex:1">
+      <h2>WELCOME TO UNDER COVER AGENCY</h2>
+      <div style="color:var(--muted); font-size:13px">Ethical cyber defense · সুরক্ষিত ডিজিটাল বাংলাদেশ</div>
+    </div>
+    <div>
+      <button id="logout" style="padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:#cfeff6;cursor:pointer">Logout</button>
+    </div>
+  </header>
 
-<header>SPECIAL CELL DASHBOARD</header>
+  <main class="container">
+    <section>
+      <div class="card">
+        <h3>Menu</h3>
+        <div class="menu" style="margin-top:12px">
+          <button onclick="goto('about.html')">ABOUT US</button>
+          <button onclick="goto('contact.html')">CONTACT US</button>
+          <button onclick="goto('special_login.html')">SPECIAL CELL</button>
+        </div>
 
-<div class="dashboard">
-  <button class="btn" onclick="window.open('https://iplogger.org/', '_blank')">IP LOOKUP</button>
-  <button class="btn" onclick="window.open('https://www.virustotal.com/gui/home/url', '_blank')">V1RUS T3ST</button>
-  <button class="btn" onclick="window.location.href='w3b_h4k1ng.html'">W3B H4K1NG</button>
-</div>
+        <div style="margin-top:18px">
+          <h4 style="margin:0 0 8px 0">Info</h4>
+          <p style="color:var(--muted); margin:0; line-height:1.6">এই ড্যাশবোর্ডে AI Cyber Bot আছে — প্রশ্ন করলেই উত্তর দেবে।</p>
+        </div>
 
-<!-- Chat Widget -->
-<div id="chat-widget">
-  <div id="chat-log"></div>
-  <div style="display:flex; gap:8px; margin-top:8px;">
-    <input id="chat-input" placeholder="প্রশ্ন লিখো..." />
-    <button id="chat-send">Send</button>
-  </div>
-</div>
+        <div class="chat">
+          <div id="chat-log"></div>
+          <div style="display:flex; gap:8px;">
+            <input id="chat-input" placeholder="প্রশ্ন লিখো..." />
+            <button id="chat-send">Send</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<footer>© SPECIAL CELL - CYBER 24</footer>
+  <footer><small style="color:#8fa6b2">© UNDER COVER AGENCY</small></footer>
 
 <script>
-const chatLog = document.getElementById('chat-log');
-const chatInput = document.getElementById('chat-input');
-const chatSend = document.getElementById('chat-send');
-
-function addMessage(role, text){
-  const el = document.createElement('div');
-  el.style.padding = '10px';
-  el.style.borderRadius = '10px';
-  el.style.maxWidth = '86%';
-  el.style.lineHeight = '1.4';
-  el.style.whiteSpace = 'pre-wrap';
-  if(role === 'user'){
-    el.style.alignSelf = 'flex-end';
-    el.style.background = 'linear-gradient(90deg,#002a33,#003f4a)';
-    el.style.color = '#dff8ff';
-  } else {
-    el.style.alignSelf = 'flex-start';
-    el.style.background = 'linear-gradient(90deg,#001820,#00272f)';
-    el.style.color = '#dff8ff';
+  // Protect direct access: if not logged-in, redirect to login
+  if(!sessionStorage.getItem('uca_auth')){
+    window.location.href = 'index.html';
   }
-  el.textContent = text;
-  chatLog.appendChild(el);
-  chatLog.scrollTop = chatLog.scrollHeight;
-}
 
-async function sendToServer(msg){
-  addMessage('user', msg);
-  try {
+  document.getElementById('logout').addEventListener('click', ()=>{
+    sessionStorage.removeItem('uca_auth');
+    sessionStorage.removeItem('uca_user');
+    window.location.href = 'index.html';
+  });
+
+  function goto(url){ window.location.href = url; }
+
+  // Chatbot logic
+  const chatLog = document.getElementById('chat-log');
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+
+  function addMessage(role, text){
+    const el = document.createElement('div');
+    el.style.padding = '10px';
+    el.style.borderRadius = '10px';
+    el.style.maxWidth = '86%';
+    el.style.lineHeight = '1.4';
+    el.style.whiteSpace = 'pre-wrap';
+    if(role==='user'){ el.style.alignSelf='flex-end'; el.style.background='linear-gradient(90deg,#002a33,#003f4a)'; el.style.color='#dff8ff'; }
+    else{ el.style.alignSelf='flex-start'; el.style.background='linear-gradient(90deg,#001820,#00272f)'; el.style.color='#dff8ff'; }
+    el.textContent=text;
+    chatLog.appendChild(el);
+    chatLog.scrollTop=chatLog.scrollHeight;
+  }
+
+  async function sendToBot(msg){
+    addMessage('user', msg);
     addMessage('bot', 'typing...');
-    const r = await fetch('/chat', {
-      method:'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ message: msg })
-    });
-    const last = chatLog.lastElementChild;
-    if(last && last.textContent === 'typing...') last.remove();
-
-    if(!r.ok){
-      const text = await r.text();
-      addMessage('bot', 'Server error: ' + text);
-      return;
+    try{
+      const res = await fetch('/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({message:msg})
+      });
+      const last = chatLog.lastElementChild;
+      if(last && last.textContent==='typing...') last.remove();
+      const data = await res.json();
+      addMessage('bot', data.reply);
+    }catch(e){
+      console.error(e);
+      addMessage('bot','Network/server error');
     }
-    const j = await r.json();
-    addMessage('bot', j.reply || JSON.stringify(j));
-  } catch(e){
-    console.error(e);
-    addMessage('bot', 'Network or server error.');
   }
-}
 
-chatSend.addEventListener('click', ()=>{
-  const txt = chatInput.value.trim();
-  if(!txt) return;
-  chatInput.value = '';
-  sendToServer(txt);
-});
-chatInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ chatSend.click(); } });
+  chatSend.addEventListener('click', ()=>{
+    const txt = chatInput.value.trim();
+    if(txt){ chatInput.value=''; sendToBot(txt); }
+  });
+  chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ chatSend.click(); } });
 
-// initial greeting
-addMessage('bot', 'Cyber Bot: স্বাগতম — প্রশ্ন লিখলে আমি উত্তর দেব।');
+  addMessage('bot','Cyber Bot: স্বাগতম — প্রশ্ন করলেই উত্তর দিব।');
 </script>
-
 </body>
 </html>
