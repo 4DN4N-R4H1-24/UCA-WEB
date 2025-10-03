@@ -1,99 +1,40 @@
 <!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UCA — Special Login</title>
-  <style>
-    :root {
-      --bg: #05070a;
-      --card: #0c1116;
-      --accent: #00e6ff;
-      --muted: #9aa9b3;
-    }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #02060a, #061018);
-      color: #e6eef3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .container {
-      background: var(--card);
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: var(--accent);
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: #001420;
-      color: #dff8ff;
-      outline: none;
-      font-size: 14px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 8px;
-      border: none;
-      background: linear-gradient(90deg, #00e6ff, #6cf0ff);
-      color: #001420;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-    }
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,230,255,0.3);
-    }
-    .info {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 12px;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Special Cell Login — UCA</title>
+<style>
+body{margin:0; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; background:#02060a; color:#fff;}
+.container{background:#0c1116; padding:40px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6); text-align:center; width:300px;}
+input{width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;}
+button{padding:10px 20px; border:none; border-radius:8px; cursor:pointer; background:#00e6ff; color:#042027; font-weight:700;}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>Special Login</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button id="loginBtn">Login</button>
-    <div class="info">
-      <!-- Credentials removed for security -->
-    </div>
-  </div>
+<div class="container">
+<h2>Special Cell Login</h2>
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<button id="loginBtn">Login</button>
+</div>
 
-  <script>
-    const loginBtn = document.getElementById('loginBtn');
-    loginBtn.addEventListener('click', () => {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
+<script>
+const loginBtn = document.getElementById('loginBtn');
 
-      // Example authentication logic (replace with your real logic)
-      if(username === 'HI UCA' && password === 'UCA WORLD'){
-        sessionStorage.setItem('uca_auth', 'true');
-        sessionStorage.setItem('uca_user', username);
-        window.location.href = 'dashboard.html';
-      } else {
+loginBtn.addEventListener('click', () => {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Special Cell Credentials
+    if(username === "HI UCA" && password === "UCA WORLD"){
+        // Flag set করে Special Dashboard এ রিডাইরেক্ট
+        sessionStorage.setItem('special_auth', 'true');
+        window.location.href = 'special_dashboard.html';
+    } else {
         alert('Invalid credentials!');
-      }
-    });
-  </script>
+    }
+});
+</script>
 </body>
 </html>
