@@ -15,7 +15,6 @@
     .menu{display:flex; gap:12px; flex-wrap:wrap}
     .menu button{padding:12px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:#dff8ff; cursor:pointer;}
     .chat{margin-top:12px; padding:12px; border-radius:8px; background:rgba(0,0,0,0.12)}
-    a.link{color:var(--accent); text-decoration:none; font-weight:600}
     footer{padding:18px; text-align:center; color:var(--muted)}
     @media(max-width:880px){ .container{grid-template-columns:1fr} }
   </style>
@@ -25,7 +24,7 @@
     <div class="logo"><img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA"></div>
     <div style="flex:1">
       <h2>WELCOME TO UNDER COVER AGENCY</h2>
-      <div style="color:var(--muted); font-size:13px">Ethical cyber defense · সুরক্ষিত ডিজিটাল বাংলাদেশ</div>
+      <div style="color:var(--muted); font-size:13px">Digital security dashboard · সমস্ত কার্যক্রম শিক্ষামূলক ও নিরাপদ</div>
     </div>
     <div>
       <button id="logout" style="padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:#cfeff6;cursor:pointer">Logout</button>
@@ -42,33 +41,19 @@
           <button onclick="goto('special_login.html')">SPECIAL CELL</button>
         </div>
 
-        <div style="margin-top:18px">
-          <h4 style="margin:0 0 8px 0">Info</h4>
-          <p style="color:var(--muted); margin:0; line-height:1.6">এই ড্যাশবোর্ডটি সাইবার-থিম ভিত্তিক, প্রফেশনাল ইউজার ইন্টারফেস প্রদর্শন করে। Special Cell-এ ঢুকতে আলাদা ক্রেডেনশিয়াল লাগবে।</p>
-        </div>
-
         <div class="chat" role="region" aria-label="Chatbot">
           <div style="display:flex; align-items:center; justify-content:space-between">
             <div>
-              <strong>Bot</strong><div style="color:var(--muted); font-size:13px">powered by A4N4N</div>
+              <strong>Cyber Bot</strong><div style="color:var(--muted); font-size:13px">powered by A4N4N</div>
             </div>
             <div><button onclick="openBot()" style="padding:8px 10px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--accent),#6cf0ff);cursor:pointer">Open Chat</button></div>
           </div>
-          <div style="margin-top:10px; color:var(--muted); font-size:13px">Chatbot placeholder — integrate your real API key in production.</div>
+          <div style="margin-top:10px; color:var(--muted); font-size:13px">
+            Chatbot ready for ethical guidance. Click 'Open Chat' to simulate responses.
+          </div>
         </div>
       </div>
     </section>
-
-    <aside>
-      <div class="card">
-        <h4>Quick links</h4>
-        <ul style="color:var(--muted); padding-left:16px; margin-top:8px">
-          <li><a class="link" href="https://www.facebook.com/cyber24UnderCoverAgency" target="_blank" rel="noopener">Facebook page</a></li>
-          <li><a class="link" href="https://www.virustotal.com/gui/home/url" target="_blank" rel="noopener">VirusTotal (URL scan)</a></li>
-          <li><a class="link" href="#" onclick="alert('IP Lookup safe guidance page coming')">IP Lookup (safe guide)</a></li>
-        </ul>
-      </div>
-    </aside>
   </main>
 
   <footer><small style="color:#8fa6b2">© UNDER COVER AGENCY</small></footer>
@@ -88,8 +73,11 @@
   function goto(url){ window.location.href = url; }
 
   function openBot(){
-    // Placeholder. Do not embed API keys directly into client JS in production.
-    alert('Chatbot placeholder.\nTo integrate: add server-side proxy and secure API key.');
+    // Simple placeholder for chatbot
+    const msg = prompt("Cyber Bot\n\nআপনার প্রশ্ন লিখুন (educational):");
+    if(msg){
+      alert("Cyber Bot:\n\nধন্যবাদ। এটি কেবল ডেমো। বাস্তব বট server-side API দিয়ে সংযুক্ত করুন।");
+    }
   }
 </script>
 </body>
