@@ -49,6 +49,7 @@
           <p style="color:var(--muted); margin:0; line-height:1.6">এই ড্যাশবোর্ডে AI Cyber Bot আছে — প্রশ্ন করলেই উত্তর দেবে।</p>
         </div>
 
+        <!-- Chatbot Section -->
         <div class="chat">
           <div id="chat-log"></div>
           <div style="display:flex; gap:8px;">
@@ -83,13 +84,20 @@
 
   function addMessage(role, text){
     const el = document.createElement('div');
-    el.style.padding = '10px';
-    el.style.borderRadius = '10px';
-    el.style.maxWidth = '86%';
-    el.style.lineHeight = '1.4';
-    el.style.whiteSpace = 'pre-wrap';
-    if(role==='user'){ el.style.alignSelf='flex-end'; el.style.background='linear-gradient(90deg,#002a33,#003f4a)'; el.style.color='#dff8ff'; }
-    else{ el.style.alignSelf='flex-start'; el.style.background='linear-gradient(90deg,#001820,#00272f)'; el.style.color='#dff8ff'; }
+    el.style.padding='10px';
+    el.style.borderRadius='10px';
+    el.style.maxWidth='86%';
+    el.style.lineHeight='1.4';
+    el.style.whiteSpace='pre-wrap';
+    if(role==='user'){
+      el.style.alignSelf='flex-end';
+      el.style.background='linear-gradient(90deg,#002a33,#003f4a)';
+      el.style.color='#dff8ff';
+    } else {
+      el.style.alignSelf='flex-start';
+      el.style.background='linear-gradient(90deg,#001820,#00272f)';
+      el.style.color='#dff8ff';
+    }
     el.textContent=text;
     chatLog.appendChild(el);
     chatLog.scrollTop=chatLog.scrollHeight;
@@ -99,16 +107,16 @@
     addMessage('user', msg);
     addMessage('bot', 'typing...');
     try{
-      const res = await fetch('/chat', {
+      const res = await fetch('https://your-server.com/chat', { // তোমার Node.js সার্ভারের URL
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:msg})
+        body: JSON.stringify({ message: msg })
       });
       const last = chatLog.lastElementChild;
       if(last && last.textContent==='typing...') last.remove();
       const data = await res.json();
       addMessage('bot', data.reply);
-    }catch(e){
+    } catch(e){
       console.error(e);
       addMessage('bot','Network/server error');
     }
@@ -118,7 +126,10 @@
     const txt = chatInput.value.trim();
     if(txt){ chatInput.value=''; sendToBot(txt); }
   });
-  chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ chatSend.click(); } });
+
+  chatInput.addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ chatSend.click(); }
+  });
 
   addMessage('bot','Cyber Bot: স্বাগতম — প্রশ্ন করলেই উত্তর দিব।');
 </script>
