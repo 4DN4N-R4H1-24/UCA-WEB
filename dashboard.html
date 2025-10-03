@@ -169,7 +169,7 @@
 
   <!-- Scripts -->
   <script>
-    // Protect direct access: if not logged-in, redirect to login
+    // Protect direct access
     if(!sessionStorage.getItem('uca_auth')){
       window.location.href = 'index.html';
     }
@@ -191,19 +191,19 @@
 
     function addMessage(role, text){
       const el = document.createElement('div');
-      el.style.padding='10px';
-      el.style.borderRadius='10px';
-      el.style.maxWidth='86%';
-      el.style.lineHeight='1.4';
-      el.style.whiteSpace='pre-wrap';
-      if(role==='user'){
-        el.style.alignSelf='flex-end';
-        el.style.background='linear-gradient(90deg,#002a33,#003f4a)';
-        el.style.color='#dff8ff';
+      el.style.padding = '10px';
+      el.style.borderRadius = '10px';
+      el.style.maxWidth = '86%';
+      el.style.lineHeight = '1.4';
+      el.style.whiteSpace = 'pre-wrap';
+      if(role === 'user'){
+        el.style.alignSelf = 'flex-end';
+        el.style.background = 'linear-gradient(90deg,#002a33,#003f4a)';
+        el.style.color = '#dff8ff';
       } else {
-        el.style.alignSelf='flex-start';
-        el.style.background='linear-gradient(90deg,#001820,#00272f)';
-        el.style.color='#dff8ff';
+        el.style.alignSelf = 'flex-start';
+        el.style.background = 'linear-gradient(90deg,#001820,#00272f)';
+        el.style.color = '#dff8ff';
       }
       el.textContent = text;
       chatLog.appendChild(el);
@@ -213,19 +213,27 @@
     async function sendToBot(msg){
       addMessage('user', msg);
       addMessage('bot', 'typing...');
+      const last = chatLog.lastElementChild;
+
       try{
-        const res = await fetch('https://your-server.com/chat', { // তোমার Node.js সার্ভারের URL
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
+        const res = await fetch('https://chat.googleapis.com/v1/messages:send?key=AIzaSyB3N2OyPnkWlmMO8UP-r4xorG_8-qxVnUw', {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
           body: JSON.stringify({ message: msg })
         });
-        const last = chatLog.lastElementChild;
-        if(last && last.textContent==='typing...') last.remove();
+
+        if(last && last.textContent === 'typing...') last.remove();
+
         const data = await res.json();
-        addMessage('bot', data.reply);
+        if(data.reply){
+          addMessage('bot', data.reply);
+        } else {
+          addMessage('bot', 'কিছু উত্তর পাওয়া যায়নি।');
+        }
       } catch(e){
         console.error(e);
-        addMessage('bot','Network/server error');
+        if(last && last.textContent === 'typing...') last.remove();
+        addMessage('bot', 'Network/server error');
       }
     }
 
@@ -235,11 +243,11 @@
     });
 
     chatInput.addEventListener('keydown', e=>{
-      if(e.key==='Enter'){ chatSend.click(); }
+      if(e.key === 'Enter'){ chatSend.click(); }
     });
 
     // Welcome message
-    addMessage('bot','Cyber Bot: স্বাগতম — প্রশ্ন করলেই উত্তর দিব।');
+    addMessage('bot', 'Cyber Bot: স্বাগতম — প্রশ্ন করলেই উত্তর দিব।');
   </script>
 </body>
 </html>
