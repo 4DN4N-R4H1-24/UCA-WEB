@@ -60,9 +60,9 @@ footer{padding:18px; text-align:center; color:var(--muted)}
 </main>
 <footer><small style="color:#8fa6b2">© UNDER COVER AGENCY</small></footer>
 <script>
-// 🚨 এইখানে আপনার আসল Gemini API Key বসান।
-// ⚠️ সতর্কতা: এটি একটি গুরুতর নিরাপত্তা ঝুঁকি।
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"; 
+// ✅ API Key বসানো হয়েছে। এটি এখন সরাসরি Google Gemini API-কে কল করবে।
+// ⚠️ সতর্কতা: এই Keyটি এখন পাবলিক।
+const GEMINI_API_KEY = "AIzaSyB3N2OyPnkWlmMO8UP-r4xorG_8-qxVnUw"; 
 
 // Protect direct access: if not logged-in, redirect to login
 if(!sessionStorage.getItem('uca_auth')){
@@ -105,12 +105,6 @@ function addMessage(role, text){
 
 // ✅ Direct Gemini API call (works on client-side)
 async function sendToBot(msg){
-    // Key চেক
-    if (!GEMINI_API_KEY || GEMINI_API_KEY === "AIzaSyB3N2OyPnkWlmMO8UP-r4xorG_8-qxVnUw") {
-        addMessage('bot', 'API Key সেট করা হয়নি। চ্যাটবট ব্যবহারের জন্য কোডে আপনার Key বসান।');
-        return;
-    }
-
     addMessage('user', msg);
     addMessage('bot', 'typing...');
     
