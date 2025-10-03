@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPECIAL CELL DASHBOARD</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: "Poppins", sans-serif;
+      color: #00eaff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
+      letter-spacing: 2px;
+    }
+    .dashboard {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .btn {
+      padding: 20px;
+      border-radius: 12px;
+      background: #001820;
+      color: #00eaff;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-shadow: 0 0 8px #00eaff;
+      box-shadow: 0 0 12px #00eaff55 inset;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00eaffaa, 0 0 35px #00eaff77 inset;
+      background: #002a33;
+    }
+    footer {
+      margin-top: 80px;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 14px;
+      color: #00eaffaa;
+      text-shadow: 0 0 8px #00eaff55;
+    }
+  </style>
+
+  <!-- Client-side protection: run early -->
+  <script>
+    (function(){
+      // check if user authenticated (set this on your login page after successful login)
+      try {
+        var auth = sessionStorage.getItem('uca_auth');
+      } catch(e) {
+        // in some browsers (privacy modes) sessionStorage may throw — treat as not authenticated
+        var auth = null;
+      }
+      if (!auth) {
+        // preserve requested page (so after login we can return)
+        var next = encodeURIComponent(location.pathname + location.search + location.hash);
+        // change index.html to your actual login file name if different
+        location.replace('index.html?next=' + next);
+      }
+      // if auth exists, page continues to load
+    })();
+  </script>
+</head>
+<body>
+
+  <header>SPECIAL CELL DASHBOARD</header>
+
+  <div class="dashboard">
+    <button class="btn" onclick="window.open('https://iplogger.org/', '_blank', 'noopener')">IP LOOKUP</button>
+    <button class="btn" onclick="window.open('https://www.virustotal.com/gui/home/url', '_blank', 'noopener')">V1RUS T3ST</button>
+    <button class="btn" onclick="window.location.href='w3b_h4k1ng.html'">W3B H4K1NG</button>
+  </div>
+
+  <footer>© SPECIAL CELL - CYBER 24</footer>
+
+</body>
+</html>
