@@ -5,10 +5,40 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Special Cell Login — UCA</title>
 <style>
-body{margin:0; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; background:#02060a; color:#fff;}
-.container{background:#0c1116; padding:40px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6); text-align:center; width:300px;}
-input{width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;}
-button{padding:10px 20px; border:none; border-radius:8px; cursor:pointer; background:#00e6ff; color:#042027; font-weight:700;}
+body {
+  margin:0;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#02060a;
+  color:#fff;
+}
+.container {
+  background:#0c1116;
+  padding:40px;
+  border-radius:12px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.6);
+  text-align:center;
+  width:300px;
+}
+input {
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#00e6ff;
+  color:#042027;
+  font-weight:700;
+}
 </style>
 </head>
 <body>
@@ -28,7 +58,7 @@ loginBtn.addEventListener('click', () => {
 
     // Special Cell Credentials
     if(username === "HI UCA" && password === "UCA WORLD"){
-        // Flag set করে Special Dashboard এ রিডাইরেক্ট
+        // Logged-in flag set করে Special Dashboard এ পাঠানো
         sessionStorage.setItem('special_auth', 'true');
         window.location.href = 'special_dashboard.html';
     } else {
