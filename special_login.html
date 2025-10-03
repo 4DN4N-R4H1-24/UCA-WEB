@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Special Cell — Login</title>
+  <style>
+    body{margin:0;background:#03050a;color:#e6eef3;font-family:Inter,Arial}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .box{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:22px;border-radius:12px; width:420px}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef3;margin-top:8px}
+    .btn{margin-top:12px;padding:10px;border-radius:8px;background:linear-gradient(90deg,#00e6ff,#6cf0ff);border:none;color:#002020;cursor:pointer}
+    a.back{color:#7fe9ff;text-decoration:none}
+    .note{color:#9fbac4; font-size:13px; margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="box">
+      <a class="back" href="dashboard.html">← Back to Dashboard</a>
+      <h3 style="margin-top:8px">SPECIAL CELL — Login</h3>
+      <p class="note">এই সেকশনে ঢুকতে আলাদা ক্রেডেনশিয়াল লাগবে। صرف সার্ভার-সাইড অথেনটিকেশন যুক্ত করলে নিরাপদ হবে।</p>
+
+      <label>Username</label>
+      <input id="suser" value="">
+      <label>Password</label>
+      <input id="spass" type="password">
+      <button class="btn" id="slogin">Enter</button>
+      <div style="color:#8fa6b2; font-size:13px; margin-top:8px">Credentials: User=<strong>HI UCA</strong>, Pass=<strong>UCA WORLD</strong></div>
+    </div>
+  </div>
+
+<script>
+  const SU = "HI UCA";
+  const SP = "UCA WORLD";
+  document.getElementById('slogin').addEventListener('click', ()=>{
+    const u = document.getElementById('suser').value.trim();
+    const p = document.getElementById('spass').value;
+    if(!sessionStorage.getItem('uca_auth')){
+      alert('Please login first to Dashboard.');
+      window.location.href='index.html';
+      return;
+    }
+    if(u === SU && p === SP){
+      sessionStorage.setItem('special_auth','true');
+      window.location.href = 'special.html';
+    } else {
+      alert('Special cell credentials invalid.');
+    }
+  });
+</script>
+</body>
+</html>
