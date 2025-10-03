@@ -2,52 +2,98 @@
 <html lang="bn">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Special Cell — Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UCA — Special Login</title>
   <style>
-    body{margin:0;background:#03050a;color:#e6eef3;font-family:Inter,Arial}
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-    .box{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:22px;border-radius:12px; width:420px}
-    input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef3;margin-top:8px}
-    .btn{margin-top:12px;padding:10px;border-radius:8px;background:linear-gradient(90deg,#00e6ff,#6cf0ff);border:none;color:#002020;cursor:pointer}
-    a.back{color:#7fe9ff;text-decoration:none}
-    .note{color:#9fbac4; font-size:13px; margin-top:10px}
+    :root {
+      --bg: #05070a;
+      --card: #0c1116;
+      --accent: #00e6ff;
+      --muted: #9aa9b3;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #02060a, #061018);
+      color: #e6eef3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: var(--card);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #001420;
+      color: #dff8ff;
+      outline: none;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(90deg, #00e6ff, #6cf0ff);
+      color: #001420;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,230,255,0.3);
+    }
+    .info {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 12px;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="box">
-      <a class="back" href="dashboard.html">← Back to Dashboard</a>
-      <h3 style="margin-top:8px">SPECIAL CELL — Login</h3>
-      <p class="note">এই সেকশনে ঢুকতে আলাদা ক্রেডেনশিয়াল লাগবে। صرف সার্ভার-সাইড অথেনটিকেশন যুক্ত করলে নিরাপদ হবে।</p>
-
-      <label>Username</label>
-      <input id="suser" value="">
-      <label>Password</label>
-      <input id="spass" type="password">
-      <button class="btn" id="slogin">Enter</button>
-      <div style="color:#8fa6b2; font-size:13px; margin-top:8px">Credentials: User=<strong>HI UCA</strong>, Pass=<strong>UCA WORLD</strong></div>
+  <div class="container">
+    <h2>Special Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <div class="info">
+      <!-- Credentials removed for security -->
     </div>
   </div>
 
-<script>
-  const SU = "HI UCA";
-  const SP = "UCA WORLD";
-  document.getElementById('slogin').addEventListener('click', ()=>{
-    const u = document.getElementById('suser').value.trim();
-    const p = document.getElementById('spass').value;
-    if(!sessionStorage.getItem('uca_auth')){
-      alert('Please login first to Dashboard.');
-      window.location.href='index.html';
-      return;
-    }
-    if(u === SU && p === SP){
-      sessionStorage.setItem('special_auth','true');
-      window.location.href = 'special.html';
-    } else {
-      alert('Special cell credentials invalid.');
-    }
-  });
-</script>
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Example authentication logic (replace with your real logic)
+      if(username === 'HI UCA' && password === 'UCA WORLD'){
+        sessionStorage.setItem('uca_auth', 'true');
+        sessionStorage.setItem('uca_user', username);
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Invalid credentials!');
+      }
+    });
+  </script>
 </body>
 </html>
