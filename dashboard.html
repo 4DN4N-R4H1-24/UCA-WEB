@@ -5,107 +5,103 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>UCA — Dashboard</title>
   <style>
-    :root {
-      --bg: #05070a;
-      --card: #0c1116;
-      --accent: #00e6ff;
-      --muted: #9aa9b3;
-    }
-    body {
-      margin: 0;
+    :root{
+      --bg:#05070a; 
+      --card:#0c1116; 
+      --accent:#00e6ff; 
+      --muted:#9aa9b3;
       font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #02060a, #061018);
-      color: #e6eef3;
     }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 28px;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#02060a, #061018);
+      color:#e6eef3;
     }
-    .logo img {
-      width: 56px;
-      height: 56px;
-      border-radius: 8px;
-      object-fit: cover;
+    header{
+      display:flex; 
+      align-items:center; 
+      gap:16px; 
+      padding:18px 28px; 
+      border-bottom:1px solid rgba(255,255,255,0.03);
     }
-    h2 {
-      margin: 0;
-      font-size: 20px;
+    .logo img{
+      width:56px; 
+      height:56px; 
+      border-radius:8px; 
+      object-fit:cover;
     }
-    .container {
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 20px;
+    h2{margin:0; font-size:20px;}
+    .container{
+      padding:28px; 
+      display:grid; 
+      grid-template-columns: 1fr 320px; 
+      gap:20px;
     }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); 
+      padding:18px; 
+      border-radius:12px; 
+      box-shadow:0 8px 30px rgba(0,0,0,0.6);
     }
-    .menu {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+    .menu{
+      display:flex; 
+      gap:12px; 
+      flex-wrap:wrap;
     }
-    .menu button {
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.03);
-      background: transparent;
-      color: #dff8ff;
-      cursor: pointer;
+    .menu button{
+      padding:12px 16px; 
+      border-radius:10px; 
+      border:1px solid rgba(255,255,255,0.03); 
+      background:transparent; 
+      color:#dff8ff; 
+      cursor:pointer;
     }
-    .chat {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 8px;
-      background: rgba(0,0,0,0.12);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .chat{
+      margin-top:12px; 
+      padding:12px; 
+      border-radius:8px; 
+      background:rgba(0,0,0,0.12); 
+      display:flex; 
+      flex-direction:column; 
+      gap:8px;
     }
-    #chat-log {
-      max-height: 300px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    #chat-log{
+      max-height:300px; 
+      overflow:auto; 
+      display:flex; 
+      flex-direction:column; 
+      gap:8px;
     }
-    #chat-input {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: #001420;
-      color: #dff8ff;
-      flex: 1;
+    #chat-input{
+      padding:10px; 
+      border-radius:8px; 
+      border:1px solid rgba(255,255,255,0.06); 
+      background:#001420; 
+      color:#dff8ff; 
+      flex:1;
     }
-    #chat-send {
-      padding: 10px 14px;
-      border-radius: 8px;
-      background: linear-gradient(90deg,#00e6ff,#6cf0ff);
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
+    #chat-send{
+      padding:10px 14px; 
+      border-radius:8px; 
+      background:linear-gradient(90deg,#00e6ff,#6cf0ff); 
+      border:none; 
+      cursor:pointer; 
+      font-weight:700;
     }
-    footer {
-      padding: 18px;
-      text-align: center;
-      color: var(--muted);
+    footer{
+      padding:18px; 
+      text-align:center; 
+      color:var(--muted);
     }
-    @media(max-width:880px) {
-      .container { grid-template-columns: 1fr; }
+    @media(max-width:880px){ 
+      .container{grid-template-columns:1fr;} 
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA">
-    </div>
+    <div class="logo"><img src="https://raw.githubusercontent.com/Rajjo69/Logo/refs/heads/main/IMG_20250906_013944_425.webp" alt="UCA"></div>
     <div style="flex:1">
       <h2>WELCOME TO UNDER COVER AGENCY</h2>
       <div style="color:var(--muted); font-size:13px">Ethical cyber defense · সুরক্ষিত ডিজিটাল বাংলাদেশ</div>
@@ -127,9 +123,7 @@
 
         <div style="margin-top:18px">
           <h4 style="margin:0 0 8px 0">Info</h4>
-          <p style="color:var(--muted); margin:0; line-height:1.6">
-            এই ড্যাশবোর্ডে AI Cyber Bot আছে — প্রশ্ন করলেই উত্তর দেবে।
-          </p>
+          <p style="color:var(--muted); margin:0; line-height:1.6">এই ড্যাশবোর্ডে AI Cyber Bot আছে — প্রশ্ন করলেই উত্তর দেবে।</p>
         </div>
 
         <!-- Chatbot Section -->
@@ -147,7 +141,7 @@
   <footer><small style="color:#8fa6b2">© UNDER COVER AGENCY</small></footer>
 
   <script>
-    // Protect direct access: redirect if not logged-in
+    // Direct access protection
     if(!sessionStorage.getItem('uca_auth')){
       window.location.href = 'index.html';
     }
@@ -183,14 +177,15 @@
       }
       el.textContent=text;
       chatLog.appendChild(el);
-      chatLog.scrollTop = chatLog.scrollHeight;
+      chatLog.scrollTop=chatLog.scrollHeight;
     }
 
     async function sendToBot(msg){
       addMessage('user', msg);
       addMessage('bot', 'typing...');
       try{
-        const res = await fetch('http://localhost:3000/chat', { // Node.js সার্ভার URL
+        // এখানে তোমার Node.js বা অন্য সার্ভারের URL বসাতে হবে
+        const res = await fetch('https://your-server.com/chat', {
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ message: msg })
