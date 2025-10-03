@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>W3B H4K1NG | SPECIAL CELL</title>
+
+  <!-- 🔒 Protection Script: Must be first in head -->
+  <script>
+    (function(){
+      let auth = null;
+      try {
+        auth = sessionStorage.getItem('special_auth');
+      } catch(e){
+        auth = null;
+      }
+      if(!auth){
+        // redirect to login if not authenticated
+        let next = encodeURIComponent(location.pathname + location.search + location.hash);
+        location.replace('special_login.html?next=' + next);
+      }
+    })();
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -54,13 +72,13 @@
       text-shadow: 0 0 8px #00eaff;
     }
     .back-btn {
-      margin-top: 50px;
-      padding: 10px 25px;
+      margin: 40px 0 60px 0;
+      padding: 12px 28px;
       border: none;
       border-radius: 10px;
       background: #001820;
       color: #00eaff;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
       box-shadow: 0 0 12px #00eaff55 inset;
       transition: 0.3s;
@@ -70,7 +88,6 @@
       transform: scale(1.05);
     }
     footer {
-      margin-top: 60px;
       text-align: center;
       font-size: 13px;
       color: #00eaffaa;
@@ -78,6 +95,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>💻 W3B H4K1NG CLASSES</h1>
@@ -113,7 +131,7 @@
     </div>
   </div>
 
-  <button class="back-btn" onclick="window.location.href='special-dashboard.html'">⬅ BACK TO DASHBOARD</button>
+  <button class="back-btn" onclick="window.location.href='special_dashboard.html'">⬅ BACK TO DASHBOARD</button>
 
   <footer>© SPECIAL CELL - CYBER 24 | W3B H4K1NG</footer>
 
