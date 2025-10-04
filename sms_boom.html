@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMS B00M</title>
 <style>
-/* -------------------- CSS স্টাইল শুরু -------------------- */
+/* CSS স্টাইল অপরিবর্তিত রাখা হলো */
 body {
   margin: 0;
   padding: 0;
@@ -82,11 +82,10 @@ footer {
   font-size: 14px;
   text-shadow: 0 0 8px #00eaff55;
 }
-/* -------------------- CSS স্টাইল শেষ -------------------- */
 </style>
 
 <script>
-// -------------------- লগইন চেক শুরু --------------------
+// লগইন চেক
 (function() {
   try {
     var auth = sessionStorage.getItem('uca_auth');
@@ -98,7 +97,6 @@ footer {
     location.replace('index.html?next=' + next);
   }
 })();
-// -------------------- লগইন চেক শেষ --------------------
 </script>
 </head>
 <body>
@@ -113,7 +111,6 @@ footer {
 <footer>© SPECIAL CELL - CYBER 24</footer>
 
 <script>
-// -------------------- জাভাস্ক্রিপ্ট ফাংশন শুরু --------------------
 async function sendSMS() {
   const numberInput = document.getElementById('numberInput');
   const messageDiv = document.getElementById('message');
@@ -131,15 +128,14 @@ async function sendSMS() {
   // লোডিং স্টেট সেট করা
   messageDiv.className = 'loading';
   messageDiv.innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।";
-  sendButton.disabled = true; // ডাবল ক্লিক এড়ানোর জন্য
+  sendButton.disabled = true;
 
-  const formData = new FormData();
-  formData.append('number', number);
+  // *** প্রধান পরিবর্তন: GET রিকোয়েস্ট তৈরি ***
+  const api_endpoint = `sms_boom_api.php?number=${number}`;
 
   try {
-    const response = await fetch('sms_boom_api.php', {
-      method: 'POST',
-      body: formData
+    const response = await fetch(api_endpoint, {
+      method: 'GET', // মেথড পরিবর্তন করা হলো
     });
 
     const data = await response.text(); 
@@ -163,7 +159,6 @@ async function sendSMS() {
     sendButton.disabled = false; // বাটন এনাবল করা
   }
 }
-// -------------------- জাভাস্ক্রিপ্ট ফাংশন শেষ --------------------
 </script>
 
 </body>
