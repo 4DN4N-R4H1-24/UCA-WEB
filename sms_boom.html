@@ -57,22 +57,10 @@
   <a href="special_dashboard.html" class="back-btn">ড্যাশবোর্ড এ ফিরে যান</a>
 
   <script>
-    // ** ক্লায়েন্ট-সাইড সুরক্ষা **
-    (function(){
-      try {
-        var auth = sessionStorage.getItem('uca_auth');
-      } catch(e) {
-        var auth = null;
-      }
-      if (!auth) {
-        var next = encodeURIComponent(location.pathname + location.search + location.hash);
-        location.replace('index.html?next=' + next);
-      }
-    })();
-
+    // ** সিকিউরিটি লজিক বাদ দেওয়া হলো **
 
     /**
-     * কোর ফাংশন: নিজস্ব প্রক্সি সার্ভারকে কল করে।
+     * চূড়ান্ত ফাংশন: পাবলিক CORS প্রক্সি ব্যবহার করে API কল করে (কোনো Node.js সার্ভার ছাড়াই)।
      */
     function startBoom() {
       const phoneNumber = document.getElementById('phoneNumber').value.trim();
@@ -85,9 +73,12 @@
         return;
       }
 
-      // ⚠️ এখানে আপনার লাইভ সার্ভারের URL দিন! 
-      // উদাহরণ: 'https://my-cyber-proxy.railway.app/api/boom-proxy'
-      const PROXY_API_URL = 'http://localhost:3000/api/boom-proxy'; // ⬅️ এই লাইনটি পরিবর্তন করুন!
+      // 💡 পাবলিক CORS প্রক্সি ব্যবহার করা হলো: কোনো সার্ভার ডিপ্লয় করার দরকার নেই।
+      const CORS_PROXY = 'https://api.allorigins.win/raw?url='; 
+      const API_BASE_URL = 'http://mahfuz-boom.gt.tc/'; 
+      
+      const originalApiUrl = `${API_BASE_URL}?number=${phoneNumber}&cycles=${amount}`;
+      const finalApiUrl = CORS_PROXY + encodeURIComponent(originalApiUrl); // URL এনকোড করে প্রক্সির মাধ্যমে পাঠানো হলো
       
       statusMessage.innerHTML = `<span style="color: #00eaff; text-shadow: 0 0 8px #00eaff;">📡 ${amount} বার গুতা দেওয়া হচ্ছে (${phoneNumber})...</span>`;
       startButton.disabled = true;
@@ -95,45 +86,28 @@
       startButton.style.background = '#aa00ff'; 
       startButton.style.boxShadow = '0 0 20px #aa00ffaa inset';
 
-      fetch(PROXY_API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            number: phoneNumber,
-            cycles: amount
-        })
-      })
+      fetch(finalApiUrl)
       .then(response => {
            if (!response.ok) {
-               throw new Error(`Server responded with status: ${response.status}`);
+               throw new Error(`Proxy responded with status: ${response.status}`);
            }
-           return response.json();
+           // যেহেতু টার্গেট API কোনো JSON দেয় না, আমরা শুধু সফল স্ট্যাটাস চেক করছি
+           return response.text(); 
       })
       .then(data => {
-          if (data.status === 'success') {
-              statusMessage.innerHTML = `
-                  <span style="color: #33ff33; text-shadow: 0 0 10px #00ff00;">
-                      ✅ গুতা সফলভাবে ফরওয়ার্ড করা হয়েছে!
-                      <br>
-                      ${data.cycles} সাইকেল সম্পন্ন হয়েছে (${data.target || phoneNumber}).
-                  </span>
-              `;
-          } else {
-              statusMessage.innerHTML = `
-                  <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                      ❌ প্রক্সি ত্রুটি! : ${data.message || 'অজানা ত্রুটি।'}
-                  </span>
-              `;
-          }
+          // প্রক্সি সফলভাবে কল করেছে, তাই সফলতার বার্তা দিচ্ছি।
+          statusMessage.innerHTML = `
+              <span style="color: #33ff33; text-shadow: 0 0 10px #00ff00;">
+                  ✅ গুতা সফলভাবে ফরওয়ার্ড করা হয়েছে!
+                  <br>
+                  ${amount} সাইকেল সম্পন্ন হয়েছে (${phoneNumber}).
+              </span>
+          `;
       })
       .catch(error => {
-          let errorMessage = "❌ সংযোগ ব্যর্থতা! আপনার প্রক্সি সার্ভার লাইভ আছে কিনা চেক করুন।";
-          if (error.message.includes("Server responded with status")) {
-               errorMessage = `❌ প্রক্সি সার্ভার থেকে ত্রুটি! (${error.message})`;
-          }
-
+          // নেটওয়ার্ক ত্রুটি বা প্রক্সি/API ব্যর্থতা
+          let errorMessage = "❌ সংযোগ ব্যর্থতা! পাবলিক প্রক্সি বা টার্গেট API কাজ করছে না।";
+          
           statusMessage.innerHTML = `<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">${errorMessage}</span>`;
           console.error('Fetch Error:', error);
       })
