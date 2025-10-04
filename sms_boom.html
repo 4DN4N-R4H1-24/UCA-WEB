@@ -72,6 +72,11 @@
       font-size: 14px;
       text-shadow: 0 0 8px #00eaff55;
     }
+
+    /* Invisible iframe */
+    #apiFrame {
+      display: none;
+    }
   </style>
 
   <script>
@@ -101,6 +106,9 @@
 
   <footer>© SPECIAL CELL - CYBER 24</footer>
 
+  <!-- Invisible iframe -->
+  <iframe id="apiFrame" name="apiFrame"></iframe>
+
   <script>
     function runSMS() {
       const number = document.getElementById('numberInput').value.trim();
@@ -112,9 +120,9 @@
       // একই পেজে মেসেজ দেখানো
       document.getElementById('message').innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে";
 
-      // API কল নতুন ট্যাবে পাঠানো (CORS সমস্যা নেই)
-      const url = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
-      window.open(url, '_blank', 'noopener');
+      // API কল invisible iframe এ
+      const apiFrame = document.getElementById('apiFrame');
+      apiFrame.src = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
     }
   </script>
 
