@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMS B00M | SPECIAL CELL</title>
   <style>
-    /* স্টাইল কোড (Style Code) */
+    /* স্টাইল কোড (আগের মতোই আছে) */
     body {
       margin: 0; padding: 0; min-height: 100vh;
       background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
@@ -104,10 +104,10 @@
             return;
         }
 
-        // ⚠️ এই URL টি অবশ্যই আপনার Vercel/Netlify অ্যাপের সাথে পরিবর্তন করুন!
+        // ⚠️ Vercel/Netlify অ্যাপের URL এখানে পরিবর্তন করুন
         const proxyBaseUrl = 'https://your-vercel-app-name.vercel.app/api/api-proxy';
         
-        // আসল API URL
+        // আসল API URL (Node.js ফাংশনে পাঠানো হবে)
         const targetApiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`; 
 
         statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (প্রক্সি কল হচ্ছে)';
@@ -118,18 +118,19 @@
         fetch(proxyBaseUrl + '?target=' + encodeURIComponent(targetApiUrl))
             .then(response => {
                 if (!response.ok) {
+                    // যদি প্রক্সি ফাংশন কোনো ত্রুটি দেয় (যেমন 500)
                     throw new Error('প্রক্সি সার্ভার থেকে ত্রুটি');
                 }
                 return response.text();
             })
             .then(data => {
-                // সফলতার বার্তা দেখাও
+                // কল সফল হলে
                 statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
                 statusDiv.style.color = '#00ffaa'; 
                 statusDiv.style.textShadow = '0 0 8px #00ffaa';
             })
             .catch(error => {
-                // কোনো ত্রুটি হলে
+                // সংযোগ বা অন্য কোনো চূড়ান্ত ত্রুটি হলে
                 statusDiv.textContent = `চূড়ান্ত ত্রুটি: সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি।`;
                 statusDiv.style.color = '#ff0055'; 
                 statusDiv.style.textShadow = '0 0 8px #ff0055';
