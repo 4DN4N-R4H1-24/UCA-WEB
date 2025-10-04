@@ -33,7 +33,7 @@
     /* Back Button Style */
     .back-btn {
       position: absolute;
-      bottom: 40px; /* ড্যাশবোর্ডে ফিরে যাওয়ার বাটনটি নিচে রাখা হলো */
+      bottom: 40px;
       padding: 15px 25px;
       border-radius: 10px;
       background: #001820;
@@ -62,7 +62,7 @@
       box-shadow: 0 0 30px #00eaffaa;
       border: 2px solid #00eaff;
       animation: pulse-border 1.5s infinite alternate;
-      margin-bottom: 120px; /* Footer/Back Button এর জন্য জায়গা */
+      margin-bottom: 120px;
     }
 
     @keyframes pulse-border {
@@ -82,7 +82,7 @@
       font-weight: 700;
       color: #00eaff;
       text-shadow: 0 0 5px #00eaff;
-      text-align: center; /* Label-টি মাঝখানে রাখা হলো */
+      text-align: center;
     }
 
     input[type="tel"],
@@ -117,7 +117,7 @@
       font-weight: bold;
       border: none;
       cursor: pointer;
-      text-shadow: 0 0 10px #00eaff; /* টেক্সটে আরও জোরালো শ্যাডো */
+      text-shadow: 0 0 10px #00eaff;
       box-shadow: 0 0 15px #00eaff88 inset;
       transition: 0.3s;
       margin-top: 20px;
@@ -177,6 +177,7 @@
       } catch(e) {
         var auth = null;
       }
+      // Redirection to index.html if authentication token is missing
       if (!auth) {
         var next = encodeURIComponent(location.pathname + location.search + location.hash);
         location.replace('index.html?next=' + next);
@@ -185,7 +186,7 @@
 
 
     /**
-     * কোর ফাংশন: ব্যাকগ্রাউন্ডে API কল করে।
+     * কোর ফাংশন: CORS প্রক্সি ব্যবহার করে API কল করে।
      */
     function startBoom() {
       // 1. Get Input Values
@@ -194,8 +195,7 @@
       const statusMessage = document.getElementById('status-message');
       const startButton = document.querySelector('.btn');
 
-      // 2. Input Validation
-      // API প্রদানকারীর নির্দেশ অনুযায়ী Cycles 5 এর বেশি হবে না
+      // 2. Input Validation (Cycles max 5)
       if (!phoneNumber || phoneNumber.length < 10) {
         statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ ত্রুটি: অনুগ্রহ করে সঠিক নম্বর দিন!</span>';
         return;
@@ -205,11 +205,15 @@
         return;
       }
 
-      // 3. Prepare API URL
+      // 3. Prepare API URL with CORS Proxy
+      // Public CORS Proxy URL
+      const CORS_PROXY = 'https://corsproxy.io/?'; 
       const API_BASE_URL = 'http://mahfuz-boom.gt.tc/'; 
-      // নম্বর এবং সাইকেল ডাইনামিকভাবে URL এ যুক্ত করা হলো
-      const finalApiUrl = `${API_BASE_URL}?number=${phoneNumber}&cycles=${amount}`; 
-
+      
+      // Original URL is URI-encoded to be passed through the proxy
+      const originalApiUrl = `${API_BASE_URL}?number=${phoneNumber}&cycles=${amount}`;
+      const finalApiUrl = CORS_PROXY + encodeURIComponent(originalApiUrl); 
+      
       // 4. Update UI for start
       statusMessage.innerHTML = `<span style="color: #00eaff; text-shadow: 0 0 8px #00eaff;">📡 ${amount} বার গুতা দেওয়া হচ্ছে (${phoneNumber})...</span>`;
       startButton.disabled = true;
@@ -217,12 +221,12 @@
       startButton.style.background = '#aa00ff'; 
       startButton.style.boxShadow = '0 0 20px #aa00ffaa inset';
 
-      // 5. Silent API Call using Fetch
+      // 5. Silent API Call using Fetch (via Proxy)
       fetch(finalApiUrl)
       .then(response => {
-          // যেহেতু API টি কোনো ডেটা রিটার্ন করে না, শুধু স্ট্যাটাস কোড চেক করা হলো
+          // Check if the request was successful (HTTP 200-299)
           if (response.ok) {
-              // স্ট্যাটাস কোড 200 মানে কল সফল
+              // Success assumed if the proxy successfully contacted the original API
               statusMessage.innerHTML = `
                   <span style="color: #33ff33; text-shadow: 0 0 10px #00ff00;">
                       ✅ গুতা সফলভাবে দেওয়া হয়েছে!
@@ -231,22 +235,22 @@
                   </span>
               `;
           } else {
-               // সার্ভার থেকে ত্রুটি পেলে
+               // Error from proxy or original API
               statusMessage.innerHTML = `
                   <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                      ❌ API ত্রুটি! স্ট্যাটাস: ${response.status}.
+                      ❌ সংযোগ ত্রুটি! প্রক্সি বা API থেকে ত্রুটি এসেছে। স্ট্যাটাস: ${response.status}.
                   </span>
               `;
           }
       })
       .catch(error => {
-          // নেটওয়ার্ক বা CORS ত্রুটি হ্যান্ডেল করা হলো
+          // Network failure
           statusMessage.innerHTML = `
               <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                  ❌ সংযোগ ত্রুটি! API-এর সাথে যোগাযোগ করা যায়নি।
+                  ❌ চূড়ান্ত সংযোগ ব্যর্থতা! প্রক্সি সার্ভারের সাথেও যোগাযোগ করা যায়নি।
               </span>
           `;
-          console.error('Fetch Error:', error);
+          console.error('Fetch Error with Proxy:', error);
       })
       .finally(() => {
           // 6. Reset button state after a small delay
@@ -258,7 +262,6 @@
           }, 3000); 
       });
     }
-
   </script>
 
 </body>
