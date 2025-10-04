@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMS B00M | SPECIAL CELL</title>
   <style>
-    /* ১. বডি ও থিম */
+    /* ... (আপনার আগের স্টাইল কোড এখানে থাকবে) ... */
     body {
       margin: 0;
       padding: 0;
@@ -37,8 +37,6 @@
       text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
       margin-bottom: 5px;
     }
-    
-    /* ২. ইনপুট ও বাটন স্টাইল */
     input[type="number"] {
       padding: 15px;
       border-radius: 8px;
@@ -68,8 +66,6 @@
       transform: scale(1.03);
       background: #004455;
     }
-    
-    /* ৩. ড্যাশবোর্ড বাটন স্টাইল */
     .dashboard-link-btn {
         padding: 15px;
         border-radius: 12px;
@@ -90,8 +86,6 @@
         transform: scale(1.03);
         background: #550066;
     }
-    
-    /* ৪. স্ট্যাটাস মেসেজ স্টাইল */
     #status {
       margin-top: 5px;
       font-size: 16px;
@@ -149,7 +143,6 @@
         const statusDiv = document.getElementById('status');
         const number = numberInput.value.trim();
         
-        // ১. ইনপুট ভ্যালিডেশন
         if (!number || number.length < 10) {
             statusDiv.textContent = 'দয়া করে সঠিক নম্বর দিন!';
             statusDiv.style.color = '#ff0055'; 
@@ -157,30 +150,25 @@
             return;
         }
 
-        // ২. API URL: আপনার নতুন API এখানে প্রতিস্থাপন করুন
-        // NOTE: যেহেতু পুরোনো API কাজ করছে না, এটি একটি প্লেসহোল্ডার।
+        // ⚠️ আপনার নতুন API URL এখানে প্রতিস্থাপন করুন!
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
-        // স্ট্যাটাস আপডেট
         statusDiv.textContent = 'SMS B00M শুরু হচ্ছে...';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. Fetch API ব্যবহার করে কল (GET অনুরোধ)
-        // 'no-cors' মোড ব্যবহার করা হচ্ছে যাতে ব্রাউজার CORS ত্রুটি দেখালেও কলটি অন্তত শুরু করে
+        // 'no-cors' মোড ব্যবহার করে সার্ভারে কল করার চেষ্টা
         fetch(apiUrl, { mode: 'no-cors' })
             .then(response => {
-                // 'no-cors' মোডে রেসপন্সটি সাধারণত স্বচ্ছ (opaque) হয়, 
-                // তাই এটি কেবল নির্দেশ করে যে কলটি সফলভাবে সার্ভারে পাঠানো হয়েছে।
+                // Fetch সফল হলে
                 statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
                 statusDiv.style.color = '#00ffaa'; 
                 statusDiv.style.textShadow = '0 0 8px #00ffaa';
             })
             .catch(error => {
-                // নেটওয়ার্ক বা অন্যান্য সমস্যা হলে
+                // Fetch ব্যর্থ হলে (সার্ভার ডাউন বা সংযোগ সমস্যা)
                 console.error("API কল ত্রুটি:", error);
                 
-                // যদি no-cors মোডও ব্যর্থ হয় (যেমন সার্ভার ডাউন), তবে একটি স্পষ্ট বার্তা দেখানো
                 statusDiv.textContent = `ত্রুটি: API সার্ভারের সাথে সংযোগ স্থাপন করা যাচ্ছে না।`;
                 statusDiv.style.color = '#ff0055'; 
                 statusDiv.style.textShadow = '0 0 8px #ff0055';
