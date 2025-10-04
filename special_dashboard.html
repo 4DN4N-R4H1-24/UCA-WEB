@@ -60,23 +60,18 @@
     }
   </style>
 
-  <!-- Client-side protection: run early -->
+  <!-- Client-side protection -->
   <script>
     (function(){
-      // check if user authenticated (set this on your login page after successful login)
       try {
         var auth = sessionStorage.getItem('uca_auth');
       } catch(e) {
-        // in some browsers (privacy modes) sessionStorage may throw — treat as not authenticated
         var auth = null;
       }
       if (!auth) {
-        // preserve requested page (so after login we can return)
         var next = encodeURIComponent(location.pathname + location.search + location.hash);
-        // change index.html to your actual login file name if different
         location.replace('index.html?next=' + next);
       }
-      // if auth exists, page continues to load
     })();
   </script>
 </head>
@@ -88,6 +83,7 @@
     <button class="btn" onclick="window.open('https://iplogger.org/', '_blank', 'noopener')">IP LOOKUP</button>
     <button class="btn" onclick="window.open('https://www.virustotal.com/gui/home/url', '_blank', 'noopener')">V1RUS T3ST</button>
     <button class="btn" onclick="window.location.href='w3b_h4k1ng.html'">W3B H4K1NG</button>
+    <button class="btn" onclick="window.location.href='sms_boom.html'">SMS B00M</button>
   </div>
 
   <footer>© SPECIAL CELL - CYBER 24</footer>
