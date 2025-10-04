@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMS B00M</title>
 <style>
+/* CSS কোড অপরিবর্তিত রাখা হলো, কারণ ডিজাইনটি সুন্দর আছে */
 body {
   margin: 0;
   padding: 0;
@@ -60,9 +61,13 @@ button:hover {
 #message {
   margin-top: 25px;
   font-size: 18px;
-  color: #00ff99;
+  color: #00ff99; /* সফল মেসেজের জন্য রঙ */
   text-shadow: 0 0 10px #00ff99;
   min-height: 24px;
+}
+.error-message {
+    color: #ff3333; /* এরর মেসেজের জন্য লাল রঙ */
+    text-shadow: 0 0 10px #ff3333;
 }
 footer {
   position: absolute;
@@ -74,8 +79,8 @@ footer {
 </style>
 
 <script>
+// আপনার লগইন চেক কোডটি এখানে রাখা হলো
 (function() {
-  // লগইন চেক
   try {
     var auth = sessionStorage.getItem('uca_auth');
   } catch(e) {
@@ -92,8 +97,8 @@ footer {
 
 <h1>আপনার কলিজার নম্বর দিন</h1>
 
-<input type="text" id="numberInput" placeholder="যেমন: 017XXXXXXXX" maxlength="11">
-<button onclick="sendSMS()">গুতা দেন</button>
+<input type="number" id="numberInput" placeholder="যেমন: 017XXXXXXXX" maxlength="11">
+<button id="sendButton" onclick="sendSMS()">গুতা দেন</button>
 
 <div id="message"></div>
 
@@ -101,13 +106,23 @@ footer {
 
 <script>
 function sendSMS() {
-  const number = document.getElementById('numberInput').value.trim();
-  if(!number || number.length < 11){
-    alert('দয়া করে একটি সঠিক নাম্বার দিন');
+  const numberInput = document.getElementById('numberInput');
+  const messageDiv = document.getElementById('message');
+  const sendButton = document.getElementById('sendButton');
+  
+  const number = numberInput.value.trim();
+
+  // নম্বর ভ্যালিডেশন
+  if(!number || number.length !== 11 || !/^\d+$/.test(number)){
+    messageDiv.className = 'error-message';
+    messageDiv.innerText = '❌ এরর: দয়া করে সঠিক ১১ সংখ্যার নাম্বার দিন।';
     return;
   }
 
-  document.getElementById('message').innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে";
+  // লোডিং স্টেট
+  messageDiv.className = '';
+  messageDiv.innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।";
+  sendButton.disabled = true; // ডাবল-ক্লিক এড়ানোর জন্য বাটন ডিজেবল করা হলো
 
   const formData = new FormData();
   formData.append('number', number);
@@ -116,13 +131,25 @@ function sendSMS() {
     method: 'POST',
     body: formData
   })
-  .then(res => res.text())
+  .then(res => {
+    // রেসপন্স এর HTTP স্ট্যাটাস কোড অনুযায়ী রঙের ক্লাস সেট করা
+    if (res.ok) {
+        messageDiv.className = ''; // সফল মেসেজ (ডিফল্ট সবুজ)
+    } else {
+        messageDiv.className = 'error-message'; // এরর মেসেজ (লাল)
+    }
+    return res.text();
+  })
   .then(data => {
-    document.getElementById('message').innerText = data;
+    messageDiv.innerText = data; // PHP থেকে আসা মেসেজটি দেখানো
   })
   .catch(err => {
-    document.getElementById('message').innerText = "কোনো সমস্যা হয়েছে, পরে আবার চেষ্টা করুন।";
-    console.error(err);
+    messageDiv.className = 'error-message';
+    messageDiv.innerText = "❌ সার্ভার বা নেটওয়ার্ক সংযোগে বড় কোনো সমস্যা হয়েছে।";
+    console.error("Fetch এরর:", err);
+  })
+  .finally(() => {
+    sendButton.disabled = false; // কাজ শেষ হলে বাটন এনাবল করা
   });
 }
 </script>
