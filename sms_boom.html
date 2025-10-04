@@ -104,7 +104,6 @@
   <script>
     (function() {
       const referrer = document.referrer;
-      // ড্যাশবোর্ডের ফাইলগুলো এখানে উল্লেখ করুন
       const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
 
       let isAllowed = false;
@@ -116,7 +115,6 @@
       }
 
       if (!isAllowed) {
-          // যদি ড্যাশবোর্ড থেকে না আসে, তবে index.html-এ রিডাইরেক্ট করে দেবে
           window.location.replace('index.html');
       }
     })();
@@ -146,7 +144,6 @@
   </div>
 
   <script>
-    // এই ফাংশনটি API কল করবে এবং স্ট্যাটাস আপডেট করবে
     function triggerSMSBoom() {
         const numberInput = document.getElementById('targetNumber');
         const statusDiv = document.getElementById('status');
@@ -160,8 +157,8 @@
             return;
         }
 
-        // ২. API URL
-        // API URL: http://mahfuz-boom.gt.tc/?number=017*******&cycles=3
+        // ২. API URL: আপনার নতুন API এখানে প্রতিস্থাপন করুন
+        // NOTE: যেহেতু পুরোনো API কাজ করছে না, এটি একটি প্লেসহোল্ডার।
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
         // স্ট্যাটাস আপডেট
@@ -169,32 +166,25 @@
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. ইমেজ লোডিং পদ্ধতি ব্যবহার করে API কল
-        // এটি GET অনুরোধ পাঠানোর সবচেয়ে নির্ভরযোগ্য ক্লায়েন্ট-সাইড পদ্ধতি।
-
-        const apiCallImage = new Image();
-        
-        // যখন কলটি সম্পূর্ণ হবে (সফল বা ব্যর্থ), স্ট্যাটাস আপডেট হবে
-        apiCallImage.onload = apiCallImage.onerror = function() {
-            // API-এর রেসপন্স পাওয়া গেলে (অর্থাৎ কলটি শুরু হয়েছে)
-            statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-            statusDiv.style.color = '#00ffaa'; 
-            statusDiv.style.textShadow = '0 0 8px #00ffaa';
-        };
-
-        // ৪. কলটি শুরু করা
-        apiCallImage.src = apiUrl;
-        
-        // ৫. ফলব্যাক টাইমআউট (যদি API সার্ভারটি কোনো প্রতিক্রিয়া না পাঠায়)
-        setTimeout(() => {
-            if (statusDiv.textContent === 'SMS B00M শুরু হচ্ছে...') {
-                // এটি একটি নিশ্চিত বার্তা
-                statusDiv.textContent = `সফলতার বার্তা দেখানো হলো। API কল শুরু করার চেষ্টা হয়েছে।`;
-                statusDiv.style.color = '#ffcc00'; // হলুদ নিয়ন
-                statusDiv.style.textShadow = '0 0 8px #ffcc00';
-            }
-        }, 3000); // ৩ সেকেন্ড অপেক্ষা করা
-
+        // ৩. Fetch API ব্যবহার করে কল (GET অনুরোধ)
+        // 'no-cors' মোড ব্যবহার করা হচ্ছে যাতে ব্রাউজার CORS ত্রুটি দেখালেও কলটি অন্তত শুরু করে
+        fetch(apiUrl, { mode: 'no-cors' })
+            .then(response => {
+                // 'no-cors' মোডে রেসপন্সটি সাধারণত স্বচ্ছ (opaque) হয়, 
+                // তাই এটি কেবল নির্দেশ করে যে কলটি সফলভাবে সার্ভারে পাঠানো হয়েছে।
+                statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+                statusDiv.style.color = '#00ffaa'; 
+                statusDiv.style.textShadow = '0 0 8px #00ffaa';
+            })
+            .catch(error => {
+                // নেটওয়ার্ক বা অন্যান্য সমস্যা হলে
+                console.error("API কল ত্রুটি:", error);
+                
+                // যদি no-cors মোডও ব্যর্থ হয় (যেমন সার্ভার ডাউন), তবে একটি স্পষ্ট বার্তা দেখানো
+                statusDiv.textContent = `ত্রুটি: API সার্ভারের সাথে সংযোগ স্থাপন করা যাচ্ছে না।`;
+                statusDiv.style.color = '#ff0055'; 
+                statusDiv.style.textShadow = '0 0 8px #ff0055';
+            });
     }
   </script>
 </body>
