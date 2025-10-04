@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMS B00M</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: "Poppins", sans-serif;
+      color: #00eaff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
+      font-size: 24px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 250px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 18px;
+      background: #001820;
+      color: #00eaff;
+      box-shadow: 0 0 12px #00eaff55 inset;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: #001820;
+      color: #00eaff;
+      text-shadow: 0 0 8px #00eaff;
+      box-shadow: 0 0 12px #00eaff55 inset;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00eaffaa, 0 0 35px #00eaff77 inset;
+      background: #002a33;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      color: #00eaffaa;
+      font-size: 14px;
+      text-shadow: 0 0 8px #00eaff55;
+    }
+  </style>
+
+  <!-- Security check: Only allow access if logged in -->
+  <script>
+    (function(){
+      try {
+        var auth = sessionStorage.getItem('uca_auth');
+      } catch(e) {
+        var auth = null;
+      }
+      if (!auth) {
+        var next = encodeURIComponent(location.pathname + location.search + location.hash);
+        location.replace('index.html?next=' + next);
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <h1>আপনার কলিজার নম্বর দেন</h1>
+  
+  <input type="text" id="numberInput" placeholder="যেমন: 017XXXXXXXX" maxlength="11">
+  
+  <button onclick="runBoom()">গুতা দেন</button>
+
+  <footer>© SPECIAL CELL - CYBER 24</footer>
+
+  <script>
+    function runBoom() {
+      const number = document.getElementById('numberInput').value.trim();
+      if (!number || number.length < 11) {
+        alert('দয়া করে একটি সঠিক নাম্বার দিন!');
+        return;
+      }
+      const url = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
