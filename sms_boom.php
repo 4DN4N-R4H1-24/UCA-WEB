@@ -8,10 +8,9 @@ if(!isset($_SESSION['uca_auth'])){
     exit;
 }
 
-// শুধু POST মেথড গ্রহণ করা হবে
+// POST ছাড়া অন্য মেথড অনুমোদিত নয়
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['number'])){
-    // নাম্বার sanitize
-    $number = preg_replace('/\D/', '', $_POST['number']); 
+    $number = preg_replace('/\D/', '', $_POST['number']);
     if(strlen($number) < 11){
         echo "সঠিক নাম্বার দিন।";
         exit;
@@ -19,7 +18,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['number'])){
 
     $url = "http://mahfuz-boom.gt.tc/?number={$number}&cycles=3";
 
-    // cURL setup
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
