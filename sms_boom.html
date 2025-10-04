@@ -110,17 +110,12 @@
       }
 
       const url = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
-      
-      // API কল পাঠানো
-      fetch(url)
-        .then(response => {
-          // আমরা API response এখান দেখাবো না, শুধু মেসেজ দেখাবো
-          document.getElementById('message').innerText = 'আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে';
-        })
-        .catch(error => {
-          document.getElementById('message').innerText = 'কোনো সমস্যা হয়েছে, পরে আবার চেষ্টা করুন।';
-          console.error(error);
-        });
+
+      // একই পেজে মেসেজ দেখানো
+      document.getElementById('message').innerText = 'আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে';
+
+      // API কল নতুন ট্যাবে চালানো
+      window.open(url, '_blank', 'noopener');
     }
   </script>
 
