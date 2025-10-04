@@ -6,7 +6,7 @@
   <title>SMS B00M - SPECIAL CELL</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Global Styles (Neon Theme) */
+    /* (এখানে আপনার স্টাইল কোড (CSS) থাকবে। পূর্বের CSS অক্ষুণ্ন রাখা হয়েছে।) */
     body {
       margin: 0;
       padding: 0;
@@ -19,8 +19,6 @@
       align-items: center;
       justify-content: center;
     }
-    
-    /* Header/Title Style */
     header {
       text-align: center;
       margin-bottom: 40px;
@@ -29,8 +27,6 @@
       text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
       letter-spacing: 2px;
     }
-    
-    /* Back Button Style */
     .back-btn {
       position: absolute;
       bottom: 40px;
@@ -51,8 +47,6 @@
       box-shadow: 0 0 15px #00eaffaa;
       transform: scale(1.05);
     }
-
-    /* Main Container for the form */
     .boom-container {
       width: 90%;
       max-width: 450px;
@@ -64,17 +58,11 @@
       animation: pulse-border 1.5s infinite alternate;
       margin-bottom: 120px;
     }
-
     @keyframes pulse-border {
       from { border-color: #00eaff; box-shadow: 0 0 30px #00eaffaa; }
       to { border-color: #0088aa; box-shadow: 0 0 40px #00eaffcc; }
     }
-
-    /* Form and Input Styles */
-    .form-group {
-      margin-bottom: 25px;
-    }
-
+    .form-group { margin-bottom: 25px; }
     label {
       display: block;
       margin-bottom: 10px;
@@ -84,7 +72,6 @@
       text-shadow: 0 0 5px #00eaff;
       text-align: center;
     }
-
     input[type="tel"],
     input[type="number"] {
       width: calc(100% - 24px);
@@ -99,14 +86,11 @@
       outline: none;
       text-align: center;
     }
-
     input[type="tel"]:focus,
     input[type="number"]:focus {
       border-color: #00eaff;
       box-shadow: 0 0 15px #00eaffaa, 0 0 15px #00eaffaa inset;
     }
-
-    /* Button Style */
     .btn {
       width: 100%;
       padding: 18px;
@@ -123,14 +107,11 @@
       margin-top: 20px;
       letter-spacing: 3px;
     }
-    
     .btn:hover {
       transform: scale(1.02);
       box-shadow: 0 0 30px #00eaffaa, 0 0 40px #00eaff99 inset;
       background: #004a55;
     }
-
-    /* Status Message Style */
     #status-message {
       margin-top: 20px;
       padding: 15px;
@@ -142,7 +123,6 @@
       color: #00eaff;
       text-shadow: 0 0 5px #00eaff;
     }
-
   </style>
 </head>
 <body>
@@ -169,15 +149,13 @@
   <a href="special_dashboard.html" class="back-btn">ড্যাশবোর্ড এ ফিরে যান</a>
 
   <script>
-    // ** ক্লায়েন্ট-সাইড সুরক্ষা (নিরাপত্তা অংশ) **
-    // যদি কেউ সরাসরি লিঙ্কে ক্লিক করে, তবে তাকে index.html পেজে পাঠিয়ে দেওয়া হবে।
+    // ** ক্লায়েন্ট-সাইড সুরক্ষা **
     (function(){
       try {
         var auth = sessionStorage.getItem('uca_auth');
       } catch(e) {
         var auth = null;
       }
-      // Redirection to index.html if authentication token is missing
       if (!auth) {
         var next = encodeURIComponent(location.pathname + location.search + location.hash);
         location.replace('index.html?next=' + next);
@@ -186,7 +164,7 @@
 
 
     /**
-     * কোর ফাংশন: CORS প্রক্সি ব্যবহার করে API কল করে।
+     * আপডেট হওয়া ফাংশন: নিজস্ব প্রক্সি সার্ভারকে কল করে।
      */
     function startBoom() {
       // 1. Get Input Values
@@ -195,65 +173,64 @@
       const statusMessage = document.getElementById('status-message');
       const startButton = document.querySelector('.btn');
 
-      // 2. Input Validation (Cycles max 5)
-      if (!phoneNumber || phoneNumber.length < 10) {
-        statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ ত্রুটি: অনুগ্রহ করে সঠিক নম্বর দিন!</span>';
-        return;
-      }
-      if (isNaN(amount) || amount < 1 || amount > 5) { 
-        statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ সতর্কতা: সাইকেল সংখ্যা ১ থেকে ৫-এর মধ্যে হতে হবে!</span>';
+      // 2. Validation
+      if (!phoneNumber || phoneNumber.length < 10 || isNaN(amount) || amount < 1 || amount > 5) {
+        statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ ত্রুটি: অনুগ্রহ করে সঠিক নম্বর এবং সাইকেল (১-৫) দিন!</span>';
         return;
       }
 
-      // 3. Prepare API URL with CORS Proxy
-      // Public CORS Proxy URL
-      const CORS_PROXY = 'https://corsproxy.io/?'; 
-      const API_BASE_URL = 'http://mahfuz-boom.gt.tc/'; 
+      // 3. YOUR PROXY API URL
+      // আপনার সার্ভার চালু থাকলে: http://localhost:3000/api/boom-proxy
+      // ডিপ্লয় করার পর: https://your-deployed-server-name.com/api/boom-proxy
+      const PROXY_API_URL = 'http://localhost:3000/api/boom-proxy'; 
       
-      // Original URL is URI-encoded to be passed through the proxy
-      const originalApiUrl = `${API_BASE_URL}?number=${phoneNumber}&cycles=${amount}`;
-      const finalApiUrl = CORS_PROXY + encodeURIComponent(originalApiUrl); 
-      
-      // 4. Update UI for start
+      // 4. Update UI
       statusMessage.innerHTML = `<span style="color: #00eaff; text-shadow: 0 0 8px #00eaff;">📡 ${amount} বার গুতা দেওয়া হচ্ছে (${phoneNumber})...</span>`;
       startButton.disabled = true;
       startButton.textContent = 'গুতা চলছে...';
       startButton.style.background = '#aa00ff'; 
       startButton.style.boxShadow = '0 0 20px #aa00ffaa inset';
 
-      // 5. Silent API Call using Fetch (via Proxy)
-      fetch(finalApiUrl)
-      .then(response => {
-          // Check if the request was successful (HTTP 200-299)
-          if (response.ok) {
-              // Success assumed if the proxy successfully contacted the original API
+      // 5. Fetch call to YOUR PROXY SERVER
+      fetch(PROXY_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // নম্বর ও সাইকেল POST বডিতে পাঠানো হলো
+        body: JSON.stringify({
+            number: phoneNumber,
+            cycles: amount
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === 'success') {
               statusMessage.innerHTML = `
                   <span style="color: #33ff33; text-shadow: 0 0 10px #00ff00;">
-                      ✅ গুতা সফলভাবে দেওয়া হয়েছে!
+                      ✅ গুতা সফলভাবে ফরওয়ার্ড করা হয়েছে!
                       <br>
-                      ${amount} সাইকেল সম্পন্ন হয়েছে (${phoneNumber}).
+                      ${data.cycles} সাইকেল সম্পন্ন হয়েছে (${data.target || phoneNumber}).
                   </span>
               `;
           } else {
-               // Error from proxy or original API
               statusMessage.innerHTML = `
                   <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                      ❌ সংযোগ ত্রুটি! প্রক্সি বা API থেকে ত্রুটি এসেছে। স্ট্যাটাস: ${response.status}.
+                      ❌ প্রক্সি ত্রুটি! : ${data.message || 'অজানা ত্রুটি।'}
                   </span>
               `;
           }
       })
       .catch(error => {
-          // Network failure
           statusMessage.innerHTML = `
               <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                  ❌ চূড়ান্ত সংযোগ ব্যর্থতা! প্রক্সি সার্ভারের সাথেও যোগাযোগ করা যায়নি।
+                  ❌ সংযোগ ব্যর্থতা! আপনার প্রক্সি সার্ভার চালু আছে কিনা চেক করুন।
               </span>
           `;
-          console.error('Fetch Error with Proxy:', error);
+          console.error('Fetch Error:', error);
       })
       .finally(() => {
-          // 6. Reset button state after a small delay
+          // 6. Reset button state
           setTimeout(() => { 
               startButton.disabled = false;
               startButton.textContent = 'গুতা দিন';
