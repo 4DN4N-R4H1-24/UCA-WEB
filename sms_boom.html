@@ -5,99 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SMS B00M | SPECIAL CELL</title>
   <style>
-    /* ১. বডি ও থিম */
+    /* সব স্টাইল ও নিয়ন থিম */
     body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      margin: 0; padding: 0; min-height: 100vh;
       background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
-      font-family: "Poppins", sans-serif;
-      color: #00eaff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      font-family: "Poppins", sans-serif; color: #00eaff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
     }
     .boom-container {
-      margin-top: -50px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 90%;
-      max-width: 400px;
-      padding: 40px 20px;
-      border-radius: 15px;
-      background: #001820;
-      box-shadow: 0 0 25px #00eaff88;
+      margin-top: -50px; display: flex; flex-direction: column; gap: 20px;
+      width: 90%; max-width: 400px; padding: 40px 20px; border-radius: 15px;
+      background: #001820; box-shadow: 0 0 25px #00eaff88;
     }
     h1 {
-      font-size: 24px;
-      font-weight: bold;
-      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
-      margin-bottom: 5px;
+      font-size: 24px; font-weight: bold; text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff; margin-bottom: 5px;
     }
-    
-    /* ২. ইনপুট ও বাটন স্টাইল */
     input[type="number"] {
-      padding: 15px;
-      border-radius: 8px;
-      border: 2px solid #00eaff;
-      background: #000a10;
-      color: #00eaff;
-      font-size: 18px;
-      text-align: center;
-      box-shadow: 0 0 10px #00eaff88;
-      outline: none;
-      transition: border-color 0.3s;
+      padding: 15px; border-radius: 8px; border: 2px solid #00eaff;
+      background: #000a10; color: #00eaff; font-size: 18px; text-align: center;
+      box-shadow: 0 0 10px #00eaff88; outline: none; transition: border-color 0.3s;
     }
     .btn {
-      padding: 15px;
-      border-radius: 12px;
-      background: #002a33;
-      color: #00eaff;
-      font-size: 20px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      text-shadow: 0 0 10px #00eaff;
-      box-shadow: 0 0 20px #00eaffaa;
-      transition: 0.3s;
+      padding: 15px; border-radius: 12px; background: #002a33;
+      color: #00eaff; font-size: 20px; font-weight: bold; border: none; cursor: pointer;
+      text-shadow: 0 0 10px #00eaff; box-shadow: 0 0 20px #00eaffaa; transition: 0.3s;
     }
     .btn:hover {
-      transform: scale(1.03);
-      background: #004455;
+      transform: scale(1.03); background: #004455;
     }
-    
-    /* ৩. ড্যাশবোর্ড বাটন স্টাইল */
     .dashboard-link-btn {
-        padding: 15px;
-        border-radius: 12px;
-        background: #330044;
-        color: #ff00ff;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        text-shadow: 0 0 8px #ff00ff;
-        box-shadow: 0 0 15px #ff00ff88;
-        text-decoration: none;
-        display: block;
-        text-align: center;
-        transition: 0.3s;
+        padding: 15px; border-radius: 12px; background: #330044;
+        color: #ff00ff; font-size: 18px; font-weight: bold; border: none; cursor: pointer;
+        text-shadow: 0 0 8px #ff00ff; box-shadow: 0 0 15px #ff00ff88;
+        text-decoration: none; display: block; text-align: center; transition: 0.3s;
     }
     .dashboard-link-btn:hover {
-        transform: scale(1.03);
-        background: #550066;
+        transform: scale(1.03); background: #550066;
     }
-    
-    /* ৪. স্ট্যাটাস মেসেজ স্টাইল */
     #status {
-      margin-top: 5px;
-      font-size: 16px;
-      min-height: 20px;
-      color: #00ffaa;
-      text-shadow: 0 0 8px #00ffaa;
+      margin-top: 5px; font-size: 16px; min-height: 20px;
+      color: #00ffaa; text-shadow: 0 0 8px #00ffaa;
     }
   </style>
 
@@ -105,8 +52,8 @@
     (function() {
       const referrer = document.referrer;
       const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
-
       let isAllowed = false;
+
       for (const allowed of allowedReferrers) {
           if (referrer.includes(allowed)) {
               isAllowed = true;
@@ -157,32 +104,30 @@
             return;
         }
 
-        // ২. API URL
+        // 🛑 এটি আপনার আসল API URL। এই লাইনটিই আপনাকে পরিবর্তন করতে হবে। 🛑
+        // ⚠️ যদি আপনার API-এর সমস্যা সমাধান না হয়, তবে এই কোড কাজ করবে না।
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
-        // স্ট্যাটাস আপডেট
-        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (ব্লকিং বাইপাস করা হচ্ছে)';
+        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (চেষ্টা চলছে)';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. চূড়ান্ত ব্লক-বাইপাস কৌশল: নতুন ইমেজ লোডিং অবজেক্ট
-        // এটি ব্রাউজারকে একটি সাধারণ ইমেজ লোড করতে বাধ্য করে, যা GET রিকোয়েস্টকে ব্লক করতে পারে না।
-
-        const apiCallImage = new Image();
-        
-        // API কলটি শুরু করা (ব্রাউজারকে GET রিকোয়েস্ট পাঠাতে বাধ্য করা)
-        apiCallImage.src = apiUrl;
-
-        // ৪. নিশ্চিতকরণের জন্য টাইমআউট
-        // যেহেতু আমরা ধরে নিচ্ছি API কার্যকর, আমরা দ্রুত সফল বার্তা দেখাব
-        setTimeout(() => {
-            // যদি কলটি ইতিমধ্যেই অন্য কোনো স্ট্যাটাস না দেখায়, তবে সফল বার্তা দেখাও
-            if (statusDiv.textContent.includes('শুরু হচ্ছে...')) {
+        // ২. ব্লক বাইপাস করার জন্য Fetch API কল (no-cors মোড)
+        fetch(apiUrl, { mode: 'no-cors' })
+            .then(response => {
+                // Fetch সফল হলে (ব্রাউজার কলটিকে সার্ভারে যেতে দিয়েছে)
                 statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
                 statusDiv.style.color = '#00ffaa'; 
                 statusDiv.style.textShadow = '0 0 8px #00ffaa';
-            }
-        }, 1500); // ১.৫ সেকেন্ড পর নিশ্চিতকরণের বার্তা দেখানো
+            })
+            .catch(error => {
+                // Fetch ব্যর্থ হলে (সার্ভার ডাউন বা অন্য কোনো চরম সমস্যা)
+                console.error("API কল ত্রুটি:", error);
+                
+                statusDiv.textContent = `ত্রুটি: API সার্ভারের সাথে সংযোগ স্থাপন করা যাচ্ছে না।`;
+                statusDiv.style.color = '#ff0055'; 
+                statusDiv.style.textShadow = '0 0 8px #ff0055';
+            });
     }
   </script>
 </body>
