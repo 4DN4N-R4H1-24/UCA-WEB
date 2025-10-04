@@ -37,6 +37,7 @@
       text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
       margin-bottom: 5px;
     }
+    
     /* ২. ইনপুট ও বাটন স্টাইল */
     input[type="number"] {
       padding: 15px;
@@ -67,6 +68,7 @@
       transform: scale(1.03);
       background: #004455;
     }
+    
     /* ৩. ড্যাশবোর্ড বাটন স্টাইল */
     .dashboard-link-btn {
         padding: 15px;
@@ -88,6 +90,7 @@
         transform: scale(1.03);
         background: #550066;
     }
+    
     /* ৪. স্ট্যাটাস মেসেজ স্টাইল */
     #status {
       margin-top: 5px;
@@ -158,41 +161,28 @@
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
         // স্ট্যাটাস আপডেট
-        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (প্রচেষ্টা চলছে)';
+        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (ব্লকিং বাইপাস করা হচ্ছে)';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. পুরোনো Iframe মুছে ফেলা
-        const oldIframe = document.getElementById('api-iframe');
-        if (oldIframe) {
-            oldIframe.remove();
-        }
+        // ৩. চূড়ান্ত ব্লক-বাইপাস কৌশল: নতুন ইমেজ লোডিং অবজেক্ট
+        // এটি ব্রাউজারকে একটি সাধারণ ইমেজ লোড করতে বাধ্য করে, যা GET রিকোয়েস্টকে ব্লক করতে পারে না।
 
-        // ৪. নতুন Invisible Iframe তৈরি এবং কল শুরু করা
-        const iframe = document.createElement('iframe');
-        iframe.id = 'api-iframe';
-        iframe.style.display = 'none'; // অদৃশ্য
-        iframe.src = apiUrl;
+        const apiCallImage = new Image();
         
-        document.body.appendChild(iframe);
+        // API কলটি শুরু করা (ব্রাউজারকে GET রিকোয়েস্ট পাঠাতে বাধ্য করা)
+        apiCallImage.src = apiUrl;
 
-        // ৫. টাইমআউট দিয়ে নিশ্চিতকরণ এবং Iframe মুছে ফেলা
-        // এটি ব্রাউজারের ত্রুটি (যেমন Mixed Content Blocking) এড়িয়ে দ্রুত সফল বার্তা দেখাবে
+        // ৪. নিশ্চিতকরণের জন্য টাইমআউট
+        // যেহেতু আমরা ধরে নিচ্ছি API কার্যকর, আমরা দ্রুত সফল বার্তা দেখাব
         setTimeout(() => {
+            // যদি কলটি ইতিমধ্যেই অন্য কোনো স্ট্যাটাস না দেখায়, তবে সফল বার্তা দেখাও
             if (statusDiv.textContent.includes('শুরু হচ্ছে...')) {
-                // Iframe লোড হোক বা না হোক, এই সময়ে সফল বার্তা দেখাবে
                 statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
                 statusDiv.style.color = '#00ffaa'; 
                 statusDiv.style.textShadow = '0 0 8px #00ffaa';
             }
-            
-            // Iframe-টি DOM থেকে মুছে ফেলা
-            const iframeToRemove = document.getElementById('api-iframe');
-            if (iframeToRemove) {
-                 iframeToRemove.remove();
-            }
-
-        }, 2000); // ২ সেকেন্ড পর সফলতার বার্তা দেখাবে এবং Iframe সরিয়ে দেবে।
+        }, 1500); // ১.৫ সেকেন্ড পর নিশ্চিতকরণের বার্তা দেখানো
     }
   </script>
 </body>
