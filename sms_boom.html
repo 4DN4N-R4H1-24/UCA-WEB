@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMS B00M</title>
 <style>
-/* ... আপনার পূর্বের সমস্ত CSS এখানে রাখুন ... */
+/* -------------------- CSS স্টাইল শুরু -------------------- */
 body {
   margin: 0;
   padding: 0;
@@ -82,11 +82,11 @@ footer {
   font-size: 14px;
   text-shadow: 0 0 8px #00eaff55;
 }
-/* ... CSS শেষ ... */
+/* -------------------- CSS স্টাইল শেষ -------------------- */
 </style>
 
 <script>
-// লগইন চেক
+// -------------------- লগইন চেক শুরু --------------------
 (function() {
   try {
     var auth = sessionStorage.getItem('uca_auth');
@@ -98,6 +98,7 @@ footer {
     location.replace('index.html?next=' + next);
   }
 })();
+// -------------------- লগইন চেক শেষ --------------------
 </script>
 </head>
 <body>
@@ -112,6 +113,7 @@ footer {
 <footer>© SPECIAL CELL - CYBER 24</footer>
 
 <script>
+// -------------------- জাভাস্ক্রিপ্ট ফাংশন শুরু --------------------
 async function sendSMS() {
   const numberInput = document.getElementById('numberInput');
   const messageDiv = document.getElementById('message');
@@ -126,10 +128,10 @@ async function sendSMS() {
     return;
   }
 
-  // লোডিং স্টেট
+  // লোডিং স্টেট সেট করা
   messageDiv.className = 'loading';
   messageDiv.innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।";
-  sendButton.disabled = true;
+  sendButton.disabled = true; // ডাবল ক্লিক এড়ানোর জন্য
 
   const formData = new FormData();
   formData.append('number', number);
@@ -142,15 +144,14 @@ async function sendSMS() {
 
     const data = await response.text(); 
     
-    // HTTP স্ট্যাটাস কোড হ্যান্ডলিং
+    // HTTP স্ট্যাটাস কোড অনুযায়ী ক্লাসের রঙ পরিবর্তন
     if (response.ok) {
         messageDiv.className = 'success';
     } else {
-        // 405, 403, 500, ইত্যাদি এরর এর ক্ষেত্রে
         messageDiv.className = 'error';
     }
     
-    // PHP থেকে আসা মেসেজটি ক্লাসে সহকারে দেখানো হলো
+    // PHP থেকে আসা মেসেজটি দেখানো
     messageDiv.innerText = data;
 
   } catch(err) {
@@ -162,6 +163,7 @@ async function sendSMS() {
     sendButton.disabled = false; // বাটন এনাবল করা
   }
 }
+// -------------------- জাভাস্ক্রিপ্ট ফাংশন শেষ --------------------
 </script>
 
 </body>
