@@ -1,165 +1,195 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMS B00M</title>
-<style>
-/* CSS স্টাইল অপরিবর্তিত রাখা হলো */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
-  font-family: "Poppins", sans-serif;
-  color: #00eaff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-h1 {
-  text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
-  font-size: 28px;
-  margin-bottom: 25px;
-}
-input {
-  width: 280px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  text-align: center;
-  font-size: 18px;
-  background: #001820;
-  color: #00eaff;
-  box-shadow: 0 0 12px #00eaff55 inset;
-  transition: 0.3s;
-}
-input:focus {
-  box-shadow: 0 0 25px #00eaffaa inset;
-}
-button {
-  margin-top: 20px;
-  padding: 15px 30px;
-  font-size: 18px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: #001820;
-  color: #00eaff;
-  text-shadow: 0 0 8px #00eaff;
-  box-shadow: 0 0 12px #00eaff55 inset;
-  transition: 0.3s;
-}
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00eaffaa, 0 0 35px #00eaff77 inset;
-  background: #002a33;
-}
-#message {
-  margin-top: 25px;
-  font-size: 18px;
-  min-height: 24px;
-}
-.loading {
-  color: #00eaff;
-  text-shadow: 0 0 10px #00eaff;
-}
-.success {
-  color: #00ff99;
-  text-shadow: 0 0 10px #00ff99;
-}
-.error {
-  color: #ff3333;
-  text-shadow: 0 0 10px #ff3333;
-}
-footer {
-  position: absolute;
-  bottom: 20px;
-  color: #00eaffaa;
-  font-size: 14px;
-  text-shadow: 0 0 8px #00eaff55;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMS B00M</title>
+  <style>
+    /* পূর্বের স্টাইল কোড (Style Code) */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: "Poppins", sans-serif;
+      color: #00eaff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .boom-container {
+      margin-top: -50px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 90%;
+      max-width: 400px;
+      padding: 40px 20px;
+      border-radius: 15px;
+      background: #001820;
+      box-shadow: 0 0 25px #00eaff88;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
+      margin-bottom: 5px;
+    }
+    input[type="number"] {
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #00eaff;
+      background: #000a10;
+      color: #00eaff;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 0 0 10px #00eaff88;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input[type="number"]:focus {
+      border-color: #00ffff;
+    }
+    .btn {
+      padding: 15px;
+      border-radius: 12px;
+      background: #002a33;
+      color: #00eaff;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-shadow: 0 0 10px #00eaff;
+      box-shadow: 0 0 20px #00eaffaa;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.03);
+      background: #004455;
+    }
+    .dashboard-link-btn {
+        padding: 15px;
+        border-radius: 12px;
+        background: #330044;
+        color: #ff00ff;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        text-shadow: 0 0 8px #ff00ff;
+        box-shadow: 0 0 15px #ff00ff88;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        transition: 0.3s;
+    }
+    .dashboard-link-btn:hover {
+        transform: scale(1.03);
+        background: #550066;
+    }
+    #status {
+      margin-top: 5px;
+      font-size: 16px;
+      min-height: 20px;
+      color: #00ffaa;
+      text-shadow: 0 0 8px #00ffaa;
+    }
+  </style>
 
-<script>
-// লগইন চেক
-(function() {
-  try {
-    var auth = sessionStorage.getItem('uca_auth');
-  } catch(e) {
-    var auth = null;
-  }
-  if (!auth) {
-    var next = encodeURIComponent(location.pathname + location.search + location.hash);
-    location.replace('index.html?next=' + next);
-  }
-})();
-</script>
+  <script>
+    (function() {
+      // চেকবক্স ১: ড্যাশবোর্ড থেকে রেফার করা হয়েছে কিনা? 
+      // যদি রেফারার URL-এ 'special_dashboard.html' বা 'dashboard.html' না থাকে...
+      const referrer = document.referrer;
+      
+      // আপনার ড্যাশবোর্ডের URL-এর অংশ (যদি এটি 'dashboard.html' হয়)
+      const allowedReferrer = 'dashboard.html'; 
+      const allowedReferrer2 = 'special_dashboard.html'; // যদি আপনার আসল ড্যাশবোর্ড এটি হয়
+
+      if (!referrer.includes(allowedReferrer) && !referrer.includes(allowedReferrer2)) {
+          // যদি ড্যাশবোর্ড থেকে না আসে, তবে index.html-এ রিডাইরেক্ট করে দেবে
+          window.location.replace('index.html');
+      }
+    })();
+  </script>
 </head>
 <body>
 
-<h1>আপনার কলিজার নম্বর দিন</h1>
-
-<input type="number" id="numberInput" placeholder="যেমন: 017XXXXXXXX" maxlength="11">
-<button id="sendButton" onclick="sendSMS()">গুতা দেন</button>
-
-<div id="message" class="loading">এখানে মেসেজ দেখাবে।</div>
-
-<footer>© SPECIAL CELL - CYBER 24</footer>
-
-<script>
-async function sendSMS() {
-  const numberInput = document.getElementById('numberInput');
-  const messageDiv = document.getElementById('message');
-  const sendButton = document.getElementById('sendButton');
-  
-  const number = numberInput.value.trim();
-
-  // প্রাথমিক ভ্যালিডেশন
-  if(!number || number.length !== 11 || !/^\d+$/.test(number)){
-    messageDiv.className = 'error';
-    messageDiv.innerText = '❌ এরর: দয়া করে সঠিক ১১ সংখ্যার মোবাইল নাম্বার দিন।';
-    return;
-  }
-
-  // লোডিং স্টেট সেট করা
-  messageDiv.className = 'loading';
-  messageDiv.innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।";
-  sendButton.disabled = true;
-
-  // *** প্রধান পরিবর্তন: GET রিকোয়েস্ট তৈরি ***
-  const api_endpoint = `sms_boom_api.php?number=${number}`;
-
-  try {
-    const response = await fetch(api_endpoint, {
-      method: 'GET', // মেথড পরিবর্তন করা হলো
-    });
-
-    const data = await response.text(); 
+  <div class="boom-container">
     
-    // HTTP স্ট্যাটাস কোড অনুযায়ী ক্লাসের রঙ পরিবর্তন
-    if (response.ok) {
-        messageDiv.className = 'success';
-    } else {
-        messageDiv.className = 'error';
+    <h1>আপনার কলিজার নম্বর দেন</h1>
+    
+    <input 
+      type="number" 
+      id="targetNumber" 
+      placeholder="017********" 
+      pattern="[0-9]*" 
+      inputmode="numeric" 
+      maxlength="11"
+      required
+    />
+    
+    <button class="btn" onclick="triggerSMSBoom()">গুতা দেন</button>
+
+    <div id="status"></div>
+
+    <a href="special_dashboard.html" class="dashboard-link-btn">ড্যাশবোর্ড</a> 
+  </div>
+
+  <script>
+    // API কল করার ফাংশন (পূর্বের মতোই আছে)
+    function triggerSMSBoom() {
+        const numberInput = document.getElementById('targetNumber');
+        const statusDiv = document.getElementById('status');
+        const number = numberInput.value.trim();
+        
+        if (!number || number.length < 10) {
+            statusDiv.textContent = 'দয়া করে সঠিক নম্বর দিন!';
+            statusDiv.style.color = '#ff0055'; 
+            statusDiv.style.textShadow = '0 0 8px #ff0055';
+            return;
+        }
+
+        const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
+        
+        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে...';
+        statusDiv.style.color = '#00eaff';
+        statusDiv.style.textShadow = '0 0 8px #00eaff';
+
+        // Invisible Iframe পদ্ধতি ব্যবহার করে API কল
+        const oldIframe = document.getElementById('api-iframe');
+        if (oldIframe) {
+            oldIframe.remove();
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.id = 'api-iframe';
+        iframe.style.display = 'none';
+        iframe.src = apiUrl;
+        
+        iframe.onload = function() {
+            statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+            statusDiv.style.color = '#00ffaa'; 
+            statusDiv.style.textShadow = '0 0 8px #00ffaa';
+
+            setTimeout(() => {
+                iframe.remove();
+            }, 1000);
+        };
+
+        iframe.onerror = function() {
+            statusDiv.textContent = 'সতর্কতা: সংযোগে সমস্যা হতে পারে। কলটি শুরু করার চেষ্টা করা হয়েছে।';
+            statusDiv.style.color = '#ffcc00';
+            statusDiv.style.textShadow = '0 0 8px #ffcc00';
+            setTimeout(() => {
+                iframe.remove();
+            }, 1000);
+        };
+
+        document.body.appendChild(iframe);
     }
-    
-    // PHP থেকে আসা মেসেজটি দেখানো
-    messageDiv.innerText = data;
-
-  } catch(err) {
-    // নেটওয়ার্ক সংযোগ বা অন্য Fetch এরর
-    messageDiv.className = 'error';
-    messageDiv.innerText = `❌ নেটওয়ার্ক বা Fetch এরর: ${err.message}`;
-    console.error("Fetch Error:", err);
-  } finally {
-    sendButton.disabled = false; // বাটন এনাবল করা
-  }
-}
-</script>
-
+  </script>
 </body>
 </html>
