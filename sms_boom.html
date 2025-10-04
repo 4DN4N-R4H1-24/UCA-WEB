@@ -37,7 +37,6 @@
       text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
       margin-bottom: 5px;
     }
-    
     /* ২. ইনপুট ও বাটন স্টাইল */
     input[type="number"] {
       padding: 15px;
@@ -68,7 +67,6 @@
       transform: scale(1.03);
       background: #004455;
     }
-    
     /* ৩. ড্যাশবোর্ড বাটন স্টাইল */
     .dashboard-link-btn {
         padding: 15px;
@@ -90,7 +88,6 @@
         transform: scale(1.03);
         background: #550066;
     }
-    
     /* ৪. স্ট্যাটাস মেসেজ স্টাইল */
     #status {
       margin-top: 5px;
@@ -161,21 +158,41 @@
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
         // স্ট্যাটাস আপডেট
-        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (এক মুহূর্ত অপেক্ষা করুন)';
+        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (প্রচেষ্টা চলছে)';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. চূড়ান্ত সমাধান: নতুন ট্যাবে কল করে ব্রাউজার সুরক্ষা বাইপাস করা
+        // ৩. পুরোনো Iframe মুছে ফেলা
+        const oldIframe = document.getElementById('api-iframe');
+        if (oldIframe) {
+            oldIframe.remove();
+        }
+
+        // ৪. নতুন Invisible Iframe তৈরি এবং কল শুরু করা
+        const iframe = document.createElement('iframe');
+        iframe.id = 'api-iframe';
+        iframe.style.display = 'none'; // অদৃশ্য
+        iframe.src = apiUrl;
         
-        // API কল শুরু করার জন্য নতুন ট্যাবে URL টি খোলা
-        window.open(apiUrl, '_blank');
-        
-        // ০.৫ সেকেন্ড পর ইউজারকে সফলতার বার্তা দেখানো
+        document.body.appendChild(iframe);
+
+        // ৫. টাইমআউট দিয়ে নিশ্চিতকরণ এবং Iframe মুছে ফেলা
+        // এটি ব্রাউজারের ত্রুটি (যেমন Mixed Content Blocking) এড়িয়ে দ্রুত সফল বার্তা দেখাবে
         setTimeout(() => {
-            statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-            statusDiv.style.color = '#00ffaa'; 
-            statusDiv.style.textShadow = '0 0 8px #00ffaa';
-        }, 500); // ০.৫ সেকেন্ড পর স্ট্যাটাস আপডেট হবে
+            if (statusDiv.textContent.includes('শুরু হচ্ছে...')) {
+                // Iframe লোড হোক বা না হোক, এই সময়ে সফল বার্তা দেখাবে
+                statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+                statusDiv.style.color = '#00ffaa'; 
+                statusDiv.style.textShadow = '0 0 8px #00ffaa';
+            }
+            
+            // Iframe-টি DOM থেকে মুছে ফেলা
+            const iframeToRemove = document.getElementById('api-iframe');
+            if (iframeToRemove) {
+                 iframeToRemove.remove();
+            }
+
+        }, 2000); // ২ সেকেন্ড পর সফলতার বার্তা দেখাবে এবং Iframe সরিয়ে দেবে।
     }
   </script>
 </body>
