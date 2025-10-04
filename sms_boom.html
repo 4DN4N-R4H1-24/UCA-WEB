@@ -6,123 +6,35 @@
   <title>SMS B00M - SPECIAL CELL</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* (এখানে আপনার স্টাইল কোড (CSS) থাকবে। পূর্বের CSS অক্ষুণ্ন রাখা হয়েছে।) */
+    /* পূর্বের নিওন-স্টাইল CSS অক্ষুণ্ন রাখা হলো */
     body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
-      font-family: 'Poppins', sans-serif;
-      color: #00eaff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      margin: 0; padding: 0; min-height: 100vh; background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
+      font-family: 'Poppins', sans-serif; color: #00eaff; display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 28px;
-      font-weight: bold;
-      text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
-      letter-spacing: 2px;
-    }
-    .back-btn {
-      position: absolute;
-      bottom: 40px;
-      padding: 15px 25px;
-      border-radius: 10px;
-      background: #001820;
-      color: #00eaff;
-      font-size: 18px;
-      font-weight: bold;
-      border: 1px solid #00eaff55;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 0 8px #00eaff55;
-      transition: 0.3s;
-    }
-    .back-btn:hover {
-      background: #002a33;
-      box-shadow: 0 0 15px #00eaffaa;
-      transform: scale(1.05);
-    }
+    header { text-align: center; margin-bottom: 40px; font-size: 28px; font-weight: bold; text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff; letter-spacing: 2px; }
+    .back-btn { position: absolute; bottom: 40px; padding: 15px 25px; border-radius: 10px; background: #001820; color: #00eaff; font-size: 18px; font-weight: bold; border: 1px solid #00eaff55; cursor: pointer; text-decoration: none; box-shadow: 0 0 8px #00eaff55; transition: 0.3s; }
+    .back-btn:hover { background: #002a33; box-shadow: 0 0 15px #00eaffaa; transform: scale(1.05); }
     .boom-container {
-      width: 90%;
-      max-width: 450px;
-      padding: 30px;
-      background: #001820;
-      border-radius: 15px;
-      box-shadow: 0 0 30px #00eaffaa;
-      border: 2px solid #00eaff;
-      animation: pulse-border 1.5s infinite alternate;
-      margin-bottom: 120px;
+      width: 90%; max-width: 450px; padding: 30px; background: #001820; border-radius: 15px; box-shadow: 0 0 30px #00eaffaa;
+      border: 2px solid #00eaff; animation: pulse-border 1.5s infinite alternate; margin-bottom: 120px;
     }
     @keyframes pulse-border {
       from { border-color: #00eaff; box-shadow: 0 0 30px #00eaffaa; }
       to { border-color: #0088aa; box-shadow: 0 0 40px #00eaffcc; }
     }
     .form-group { margin-bottom: 25px; }
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #00eaff;
-      text-shadow: 0 0 5px #00eaff;
-      text-align: center;
+    label { display: block; margin-bottom: 10px; font-size: 18px; font-weight: 700; color: #00eaff; text-shadow: 0 0 5px #00eaff; text-align: center; }
+    input[type="tel"], input[type="number"] {
+      width: calc(100% - 24px); padding: 12px; border-radius: 8px; border: 2px solid #00eaff55; background: #000a10;
+      color: #00eaff; font-size: 18px; box-shadow: 0 0 8px #00eaff55 inset; transition: border-color 0.3s; outline: none; text-align: center;
     }
-    input[type="tel"],
-    input[type="number"] {
-      width: calc(100% - 24px);
-      padding: 12px;
-      border-radius: 8px;
-      border: 2px solid #00eaff55;
-      background: #000a10;
-      color: #00eaff;
-      font-size: 18px;
-      box-shadow: 0 0 8px #00eaff55 inset;
-      transition: border-color 0.3s;
-      outline: none;
-      text-align: center;
-    }
-    input[type="tel"]:focus,
-    input[type="number"]:focus {
-      border-color: #00eaff;
-      box-shadow: 0 0 15px #00eaffaa, 0 0 15px #00eaffaa inset;
-    }
+    input[type="tel"]:focus, input[type="number"]:focus { border-color: #00eaff; box-shadow: 0 0 15px #00eaffaa, 0 0 15px #00eaffaa inset; }
     .btn {
-      width: 100%;
-      padding: 18px;
-      border-radius: 12px;
-      background: #003a44;
-      color: #00eaff;
-      font-size: 24px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      text-shadow: 0 0 10px #00eaff;
-      box-shadow: 0 0 15px #00eaff88 inset;
-      transition: 0.3s;
-      margin-top: 20px;
-      letter-spacing: 3px;
+      width: 100%; padding: 18px; border-radius: 12px; background: #003a44; color: #00eaff; font-size: 24px; font-weight: bold; border: none; cursor: pointer;
+      text-shadow: 0 0 10px #00eaff; box-shadow: 0 0 15px #00eaff88 inset; transition: 0.3s; margin-top: 20px; letter-spacing: 3px;
     }
-    .btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px #00eaffaa, 0 0 40px #00eaff99 inset;
-      background: #004a55;
-    }
-    #status-message {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      text-align: center;
-      font-weight: bold;
-      min-height: 20px;
-      color: #00eaff;
-      text-shadow: 0 0 5px #00eaff;
-    }
+    .btn:hover { transform: scale(1.02); box-shadow: 0 0 30px #00eaffaa, 0 0 40px #00eaff99 inset; background: #004a55; }
+    #status-message { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 16px; text-align: center; font-weight: bold; min-height: 20px; color: #00eaff; text-shadow: 0 0 5px #00eaff; }
   </style>
 </head>
 <body>
@@ -130,19 +42,15 @@
   <header>SPECIAL CELL - SMS B00M</header>
 
   <div class="boom-container">
-    
     <div class="form-group">
       <label for="phoneNumber">আপনার কলিজার নম্বর টি দিন...</label>
       <input type="tel" id="phoneNumber" placeholder="যেমন: 88017********" required>
     </div>
-
     <div class="form-group">
         <label for="amount">সাইকেল সংখ্যা (সর্বোচ্চ 5)</label>
         <input type="number" id="amount" placeholder="১ থেকে ৫ দিন" value="3" min="1" max="5" required>
     </div>
-
     <button class="btn" onclick="startBoom()">গুতা দিন</button>
-    
     <div id="status-message">অপেক্ষমান...</div>
   </div>
   
@@ -164,46 +72,45 @@
 
 
     /**
-     * আপডেট হওয়া ফাংশন: নিজস্ব প্রক্সি সার্ভারকে কল করে।
+     * কোর ফাংশন: নিজস্ব প্রক্সি সার্ভারকে কল করে।
      */
     function startBoom() {
-      // 1. Get Input Values
       const phoneNumber = document.getElementById('phoneNumber').value.trim();
       const amount = parseInt(document.getElementById('amount').value);
       const statusMessage = document.getElementById('status-message');
       const startButton = document.querySelector('.btn');
 
-      // 2. Validation
       if (!phoneNumber || phoneNumber.length < 10 || isNaN(amount) || amount < 1 || amount > 5) {
         statusMessage.innerHTML = '<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">❌ ত্রুটি: অনুগ্রহ করে সঠিক নম্বর এবং সাইকেল (১-৫) দিন!</span>';
         return;
       }
 
-      // 3. YOUR PROXY API URL
-      // আপনার সার্ভার চালু থাকলে: http://localhost:3000/api/boom-proxy
-      // ডিপ্লয় করার পর: https://your-deployed-server-name.com/api/boom-proxy
-      const PROXY_API_URL = 'http://localhost:3000/api/boom-proxy'; 
+      // ⚠️ এখানে আপনার লাইভ সার্ভারের URL দিন! 
+      // উদাহরণ: 'https://my-cyber-proxy.railway.app/api/boom-proxy'
+      const PROXY_API_URL = 'http://localhost:3000/api/boom-proxy'; // ⬅️ এই লাইনটি পরিবর্তন করুন!
       
-      // 4. Update UI
       statusMessage.innerHTML = `<span style="color: #00eaff; text-shadow: 0 0 8px #00eaff;">📡 ${amount} বার গুতা দেওয়া হচ্ছে (${phoneNumber})...</span>`;
       startButton.disabled = true;
       startButton.textContent = 'গুতা চলছে...';
       startButton.style.background = '#aa00ff'; 
       startButton.style.boxShadow = '0 0 20px #aa00ffaa inset';
 
-      // 5. Fetch call to YOUR PROXY SERVER
       fetch(PROXY_API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        // নম্বর ও সাইকেল POST বডিতে পাঠানো হলো
         body: JSON.stringify({
             number: phoneNumber,
             cycles: amount
         })
       })
-      .then(response => response.json())
+      .then(response => {
+           if (!response.ok) {
+               throw new Error(`Server responded with status: ${response.status}`);
+           }
+           return response.json();
+      })
       .then(data => {
           if (data.status === 'success') {
               statusMessage.innerHTML = `
@@ -222,15 +129,15 @@
           }
       })
       .catch(error => {
-          statusMessage.innerHTML = `
-              <span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">
-                  ❌ সংযোগ ব্যর্থতা! আপনার প্রক্সি সার্ভার চালু আছে কিনা চেক করুন।
-              </span>
-          `;
+          let errorMessage = "❌ সংযোগ ব্যর্থতা! আপনার প্রক্সি সার্ভার লাইভ আছে কিনা চেক করুন।";
+          if (error.message.includes("Server responded with status")) {
+               errorMessage = `❌ প্রক্সি সার্ভার থেকে ত্রুটি! (${error.message})`;
+          }
+
+          statusMessage.innerHTML = `<span style="color: #ff5555; text-shadow: 0 0 5px #ff0000;">${errorMessage}</span>`;
           console.error('Fetch Error:', error);
       })
       .finally(() => {
-          // 6. Reset button state
           setTimeout(() => { 
               startButton.disabled = false;
               startButton.textContent = 'গুতা দিন';
