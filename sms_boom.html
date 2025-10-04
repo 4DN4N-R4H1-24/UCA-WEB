@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMS B00M</title>
   <style>
     body {
@@ -73,6 +73,21 @@
       text-shadow: 0 0 8px #00eaff55;
     }
   </style>
+
+  <script>
+    // লগইন চেক
+    (function() {
+      try {
+        var auth = sessionStorage.getItem('uca_auth');
+      } catch(e) {
+        var auth = null;
+      }
+      if (!auth) {
+        var next = encodeURIComponent(location.pathname + location.search + location.hash);
+        location.replace('index.html?next=' + next);
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -80,35 +95,26 @@
   
   <input type="text" id="numberInput" placeholder="যেমন: 017XXXXXXXX" maxlength="11">
   
-  <button onclick="sendSMS()">গুতা দেন</button>
+  <button onclick="runSMS()">গুতা দেন</button>
 
   <div id="message"></div>
 
   <footer>© SPECIAL CELL - CYBER 24</footer>
 
   <script>
-    function sendSMS() {
+    function runSMS() {
       const number = document.getElementById('numberInput').value.trim();
       if(!number || number.length < 11){
         alert('দয়া করে একটি সঠিক নাম্বার দিন');
         return;
       }
 
-      const formData = new FormData();
-      formData.append('number', number);
+      // একই পেজে মেসেজ দেখানো
+      document.getElementById('message').innerText = "আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে";
 
-      fetch('sms_boom.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('message').innerText = data;
-      })
-      .catch(err => {
-        document.getElementById('message').innerText = "কোনো সমস্যা হয়েছে, পরে আবার চেষ্টা করুন।";
-        console.error(err);
-      });
+      // API কল নতুন ট্যাবে পাঠানো (CORS সমস্যা নেই)
+      const url = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
+      window.open(url, '_blank', 'noopener');
     }
   </script>
 
