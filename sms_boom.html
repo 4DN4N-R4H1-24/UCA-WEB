@@ -58,6 +58,13 @@
       background: #002a33;
     }
 
+    #message {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #00ff99;
+      text-shadow: 0 0 10px #00ff99;
+    }
+
     footer {
       position: absolute;
       bottom: 20px;
@@ -67,7 +74,7 @@
     }
   </style>
 
-  <!-- Security check: Only allow access if logged in -->
+  <!-- Security check -->
   <script>
     (function(){
       try {
@@ -90,6 +97,8 @@
   
   <button onclick="runBoom()">গুতা দেন</button>
 
+  <div id="message"></div>
+
   <footer>© SPECIAL CELL - CYBER 24</footer>
 
   <script>
@@ -99,8 +108,19 @@
         alert('দয়া করে একটি সঠিক নাম্বার দিন!');
         return;
       }
+
       const url = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
-      window.open(url, '_blank');
+      
+      // API কল পাঠানো
+      fetch(url)
+        .then(response => {
+          // আমরা API response এখান দেখাবো না, শুধু মেসেজ দেখাবো
+          document.getElementById('message').innerText = 'আপনার কলিজা কে ভালোবাসা পাঠানো হচ্ছে';
+        })
+        .catch(error => {
+          document.getElementById('message').innerText = 'কোনো সমস্যা হয়েছে, পরে আবার চেষ্টা করুন।';
+          console.error(error);
+        });
     }
   </script>
 
